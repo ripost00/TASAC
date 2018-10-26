@@ -37,11 +37,11 @@ $(document).ready(function() {
 			fn_checkTree(rowid);
 		}
 	);
-	
+
 	commonMakeCodeComboBox("sUseYn", "YN_CODE2", true);
-	
+
 	fn_init();
-	
+
 	fn_searchTree();
 
 	$("#sAuthNm").focus();
@@ -55,10 +55,11 @@ function fn_init() {
 
 function fn_searchTree() {
 	$("#jsTree").jstree("destroy").empty();
-	
+
 	commonAjax(null, "/system/menu/selectMenuList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length > 0) {
 			fn_makeJSTrees(fn_makeTreeJsonData(returnData.rows), 0);
+			fn_search();
 		}
 	});
 }
@@ -85,14 +86,14 @@ function fn_initClear() {
 	document.searchForm.reset();
 	$("#gridList").jqGrid("clearGridData");
 	$("#jsTree").jstree(true).deselect_all();
-	
+
 	$("#sAuthNm").focus();
 }
 
 function fn_search() {
 	$("#gridList").jqGrid("clearGridData");
 	$("#jsTree").jstree(true).deselect_all();
-	
+
 	var searchData = {
 		sAuthNm: $("#sAuthNm").val(),
 		sUseYn: $("#sUseYn").val()
@@ -103,9 +104,9 @@ function fn_search() {
 function fn_checkTree(rowId) {
 	$("#jsTree").jstree(true).deselect_all();
 	var rowData = $("#gridList").jqGrid("getRowData", rowId);
-	
+
 	$("#authId").val(rowData.authId);
-	
+
 	commonAjax({ "authId": rowData.authId }, "/system/authMap/selectAuthMapList.do", function(returnData, textStatus, jqXHR) {
 		for (var i=0; i<returnData.rows.length; i++) {
 			$("#jsTree").jstree("check_node", returnData.rows[i].menuId);
@@ -115,11 +116,11 @@ function fn_checkTree(rowId) {
 
 function fn_save() {
 	var menuIds = $("#jsTree").jstree(true).get_selected();
-	
+
 	var data = $("#detailForm").serializeArray();
 	data.push({ name: "menuIds", value: menuIds });
-	
-	commonAjax(data ,"/system/authMap/transactionAuthMap.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/authMap/transactionAuthMap.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
@@ -130,7 +131,7 @@ function fn_save() {
 <div class="wrap">
 	<div class="float_left w100p">
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
-		
+
 		<div class="contBtn1">
 			<a href="javascript:fn_initClear()"  class="btn_refresh" title="초기화"></a>
 			<i></i>
@@ -139,7 +140,7 @@ function fn_save() {
 			<a href="javascript:fn_search()" class="btn_search" title="조회"></a>
 		</div>
 	</div>
-	
+
 	<div class="box_search">
 		<form id="searchForm" name="searchForm" method="post">
 			<fieldset>
@@ -152,11 +153,11 @@ function fn_save() {
 	    	</fieldset>
 		</form>
 	</div>
-	
+
 	<div id="grid" class="float_left" style="width: calc(50% - 27px); height: calc(100% - 109px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
 		<table id="gridList"></table>
 	</div>
-	
+
 	<div id="tree" style="width: calc(50% - 27px); height: calc(100% - 109px); float: left; border: 1px solid #c5c5c5; border-radius: 3px; background: #fff; padding: 10px; margin-left: 10px;">
 		<form id="detailForm" name="detailForm" method="post">
 			<input type="text" style="display: none;" id="authId" name="authId" value=""/>
