@@ -171,11 +171,11 @@ function fn_searchDetl(accId) {
 		</form>
 	</div>
 
-	<div id="grid1" class="float_left w100p" style="height: calc(70% - 60.5px);">
+	<div id="grid1" class="float_left w100p" style="height: calc(50% - 60.5px);">
 		<table id="gridList1"></table>
 	</div>
 
-	<div class="float_left w100p" style="height: calc(30% - 69px); margin-top: 16px;">
+	<div class="float_left w100p" style="height: calc(50% - 69px); margin-top: 16px;">
 		<p class="float_left w100p mt10" style="font-weight: bold;">▶ 사고차량 정보</p>
 
 		<div id="form1" class="form_box" style="width: 568px; height: calc(100% - 21.5px); margin-top: 0px;">
