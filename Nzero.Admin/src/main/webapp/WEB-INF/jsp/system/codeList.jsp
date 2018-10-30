@@ -369,7 +369,7 @@ function fn_deleteDetl() {
 					<tbody>
 						<tr>
 							<td colspan="2" style="border-top: none; border-left:  none; border-right: none;">
-								<div class="contBtn1" style="top: 524px; right: 29px;">
+								<div class="contBtn1" style="top: calc(50% + 70px); top: -webkit-calc(50% + 70px); right: 29px;">
 									<a href="javascript:fn_newDetl()" class="btn_new" title="신규"></a>
 									<i></i>
 									<a href="javascript:fn_saveDetl()" class="btn_save" title="저장"></a>
