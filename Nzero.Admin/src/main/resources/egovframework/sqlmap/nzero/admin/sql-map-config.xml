@@ -10,5 +10,5 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/Menu_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/AuthMap_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/record/IncdHist_SQL.xml"></sqlMap>
-
-<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/AcidStat_SQL.xml"></sqlMap></sqlMapConfig>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/AcidStat_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/DistStat_SQL.xml"></sqlMap></sqlMapConfig>
