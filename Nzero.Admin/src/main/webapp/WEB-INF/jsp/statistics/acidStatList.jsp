@@ -18,7 +18,7 @@ var colNm_mon_User = ['기관ID','1월','2월','3월','4월','5월','6월','7월
 var colNm_mon_Road = ['도로유형','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','합계'];
 var colNm_mon_Whtr = ['기상상황','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','합계'];
 var colModel_mon = [
-	{ name: 'trn', width: 100, align: 'center' },
+	{ name: 'trn', width: 120, align: 'center' },
 	{ name: 'm01', align: 'center'},{ name: 'm02', align: 'center'},{ name: 'm03', align: 'center'},{ name: 'm04', align: 'center'},
 	{ name: 'm05', align: 'center'},{ name: 'm06', align: 'center'},{ name: 'm07', align: 'center'},{ name: 'm08', align: 'center'},
 	{ name: 'm09', align: 'center'},{ name: 'm10', align: 'center'},{ name: 'm11', align: 'center'},{ name: 'm12', align: 'center'},
@@ -50,16 +50,18 @@ function getColNames() {
 	if(selTerm == 'MON'){
 		colNames = colNm_mon_Temp; //default
 		switch(selTable) {
-			case 'TB_ST_HT_TEMP_AUTO':
+			case 'SEL_TEMP':
+			case 'SEL_TEMP_DIST':
 				colNames = colNm_mon_Temp;
 				break;
-			case 'TB_ST_HT_USER_AUTO':
+			case 'SEL_USER':
+			case 'SEL_USER_DIST':
 				colNames = colNm_mon_User;
 				break;
-			case 'TB_ST_HT_ROAD_AUTO':
+			case 'SEL_ROAD':
 				colNames = colNm_mon_Road;
 				break;
-			case 'TB_ST_HT_WEATHER_AUTO':
+			case 'SEL_WTHR':
 				colNames = colNm_mon_Whtr;
 				break;
 		}
@@ -67,16 +69,18 @@ function getColNames() {
 	else if(selTerm == 'YEAR'){
 		colNm_year = [];
 		switch(selTable) {
-			case 'TB_ST_HT_TEMP_AUTO':
+			case 'SEL_TEMP':
+			case 'SEL_TEMP_DIST':
 				colNm_year.push('임시운행번호');
 				break;
-			case 'TB_ST_HT_USER_AUTO':
+			case 'SEL_USER':
+			case 'SEL_USER_DIST':
 				colNm_year.push('기관ID');
 				break;
-			case 'TB_ST_HT_ROAD_AUTO':
+			case 'SEL_ROAD':
 				colNm_year.push('도로유형');
 				break;
-			case 'TB_ST_HT_WEATHER_AUTO':
+			case 'SEL_WTHR':
 				colNm_year.push('기상상황');
 				break;
 		}
@@ -96,7 +100,7 @@ function getColModel() {
 	}
 	else if(selTerm == 'YEAR'){
 		colModel_year = [];
-		colModel_year.push({ name: 'trn', width: 100, align: 'center' });
+		colModel_year.push({ name: 'trn', width: 120, align: 'center' });
 		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) {
 			colModel_year.push({ name: String(i), align: 'center'});
 		}
@@ -104,26 +108,6 @@ function getColModel() {
 		colModel = colModel_year; //default
 	}
 	return colModel;
-}
-
-// 현재 검색옵션에 따른 db 테이블 pk return
-function getPKColumn() {
-	sPKColumn = 'TMP_RACE_NUMBER'; //default
-	switch($('#sType').val()) {
-		case 'TB_ST_HT_TEMP_AUTO':
-			sPKColumn = 'TMP_RACE_NUMBER';
-			break;
-		case 'TB_ST_HT_USER_AUTO':
-			sPKColumn = 'USER_ID';
-			break;
-		case 'TB_ST_HT_ROAD_AUTO':
-			sPKColumn = 'ROAD_TYPE_CD';
-			break;
-		case 'TB_ST_HT_WEATHER_AUTO':
-			sPKColumn = 'WEATHER';
-			break;
-	}
-	return sPKColumn;
 }
 
 // 데이터 조회 시 현재 검색옵션 파라미터 return
@@ -138,8 +122,7 @@ function getSearchData() {
 		}
 	}
 	searchData = {
-		sTable: $('#sType').val()+'_'+$('#sTerm').val(),
-		sColumn: getPKColumn(),
+		sType: $('#sType').val(),
 		sKeyword: $('#sKeyword').val(),
 		sDate: sDt,
 		eDate: eDt,
@@ -150,11 +133,11 @@ function getSearchData() {
 
 // 년/월 옵션에 따라 요청 request url return
 function getSevletUrl() {
-	var url = '/statistics/stat/selectAcidStatMonList.do';
+	var url;
 	if($('#sTerm').val() == 'MON'){
 		url = '/statistics/stat/selectAcidStatMonList.do';
 	}
-	else if($('#sTerm').val() == 'YEAR'){
+	else {
 		url = '/statistics/stat/selectAcidStatYearList.do';
 	}
 	return url;
@@ -162,11 +145,11 @@ function getSevletUrl() {
 
 // 년/월 옵션에 따라 요청 request url (그래프용) return
 function getSevletUrlChart() {
-	var url = '/statistics/stat/selectAcidStatMonListChart.do';
+	var url;
 	if($('#sTerm').val() == 'MON'){
 		url = '/statistics/stat/selectAcidStatMonListChart.do';
 	}
-	else if($('#sTerm').val() == 'YEAR'){
+	else {
 		url = '/statistics/stat/selectAcidStatYearListChart.do';
 	}
 	return url;
@@ -174,11 +157,11 @@ function getSevletUrlChart() {
 
 // 년/월 옵션에 따라 요청 request url (엑셀용) return
 function getSevletUrlExcel() {
-	var url = '/statistics/stat/selectAcidStatMonExcel.do';
+	var url;
 	if($('#sTerm').val() == 'MON'){
 		url = '/statistics/stat/selectAcidStatMonExcel.do';
 	}
-	else if($('#sTerm').val() == 'YEAR'){
+	else {
 		url = '/statistics/stat/selectAcidStatYearExcel.do';
 	}
 	return url;
@@ -197,13 +180,42 @@ function fn_makeGrid() {
 			// fn_searchForm(rowid);
 		}
 	);
+	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
+	// 헤더 colspan 처리
+	var colModel = $("#gridList").jqGrid('getGridParam', 'colModel');
+	var cs_cnt, cs_text;
+	var selType = $('#sType').val();
+	var selTerm = $('#sTerm').val();
+	if(selTerm == 'MON'){
+		cs_cnt = 12;
+		if(selType == 'SEL_TEMP_DIST' || selType == 'SEL_USER_DIST')
+			cs_text = '월별 사고당 주행거리(km/h)';
+		else
+			cs_text = '월별 사고건수';
+	}
+	else {
+		cs_cnt = 0;
+		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) {
+			cs_cnt++;
+		}
+		if(selType == 'SEL_TEMP_DIST' || selType == 'SEL_USER_DIST')
+			cs_text = '년도별 사고당 주행거리(km/h)';
+		else
+			cs_text = '년도별 사고건수';
+	}
+	$("#gridList").jqGrid('setGroupHeaders', {
+		useColSpanStyle: true,
+			groupHeaders:[
+				{ startColumnName: colModel[1].name, numberOfColumns: cs_cnt, titleText: cs_text }
+		  ]
+  });
  	fn_init(); // grid 생성 후 화면 레이아웃 refresh
 }
 
 function fn_init() {
 	$('#grid').css('height', 'calc(100% - '+($('#form').height()+119)+'px)');
 	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
-	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-30);
+	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-57);
 }
 
 // 검색 옵션에 따른 데이터 검색
@@ -308,8 +320,6 @@ function fn_excel() {
 	$('#datafield').val(datafield);
 	$('#excelFileNm').val('사고통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
 
-	$('#sTable').val($('#sType').val()+'_'+$('#sTerm').val());
-	$('#sColumn').val(getPKColumn());
 	$('#yearArr').val(yearArr);
 
 	$('#searchForm').attr('action', getSevletUrlExcel());
@@ -335,17 +345,17 @@ function fn_excel() {
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
-			<input type="hidden" id="sTable" name="sTable" value="">
-			<input type="hidden" id="sColumn" name="sColumn" value="">
 			<input type="hidden" id="yearArr" name="yearArr" value="">
 
-			<fieldset style="width: 360px;">
+			<fieldset style="width: 400px;">
 				<span class="tit" style="float: left;">구분</span>
-				<select style="float: left; margin-left: 2px; width: 80px; height: 25px;" id="sType" name="sType" >
-					<option value="TB_ST_HT_TEMP_AUTO">차량별</option>
-					<option value="TB_ST_HT_USER_AUTO">기관별</option>
-					<option value="TB_ST_HT_ROAD_AUTO">도로별</option>
-					<option value="TB_ST_HT_WEATHER_AUTO">기상별</option>
+				<select style="float: left; margin-left: 2px; width: 150px; height: 25px;" id="sType" name="sType" >
+					<option value="SEL_TEMP">차량별 사고건수</option>
+					<option value="SEL_USER">기관별 사고건수</option>
+					<option value="SEL_ROAD">도로별 사고건수</option>
+					<option value="SEL_WTHR">기상별 사고건수</option>
+					<option value="SEL_TEMP_DIST">차량별 사고당 주행거리</option>
+					<option value="SEL_USER_DIST">기관별 사고당 주행거리</option>
 				</select>
 				<input type="text" style="float:left; margin-left: 2px; width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value=""/>
 			</fieldset>
