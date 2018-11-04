@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
-
 <sqlMapConfig>
-
 <sqlMap resource="egovframework/sqlmap/nzero/admin/main/Login_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/User_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/Code_SQL.xml"></sqlMap>
@@ -11,4 +9,6 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/AuthMap_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/record/IncdHist_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/AcidStat_SQL.xml"></sqlMap>
-<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/DistStat_SQL.xml"></sqlMap></sqlMapConfig>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/DistStat_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/ControlStat_SQL.xml"></sqlMap>
+</sqlMapConfig>
