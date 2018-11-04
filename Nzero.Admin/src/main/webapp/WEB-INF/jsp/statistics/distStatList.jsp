@@ -13,9 +13,9 @@
 // global 변수 선언
 var colNames, colModel, sPKColumn, searchData;
 // grid column 구조
-var colNm_mon_All = ['구분','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','합계'];
-var colNm_mon_Temp = ['임시운행번호','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','합계'];
-var colNm_mon_User = ['기관ID','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','합계'];
+var colNm_mon_All = ['구분','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
+var colNm_mon_Temp = ['임시운행번호','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
+var colNm_mon_User = ['기관ID','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
 var colModel_mon = [
 	{ name: 'trn', width: 120, align: 'center' },
 	{ name: 'm01', align: 'center'},{ name: 'm02', align: 'center'},{ name: 'm03', align: 'center'},{ name: 'm04', align: 'center'},
@@ -75,7 +75,7 @@ function getColNames() {
 				break;
 		}
 		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) colNm_year.push(String(i));
-		colNm_year.push('합계');
+		colNm_year.push('총 누적 (km/h)');
 		colNames = colNm_year;
 	}
 	return colNames;
@@ -169,13 +169,35 @@ function fn_makeGrid() {
 			// fn_searchForm(rowid);
 		}
 	);
+	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
+	// 헤더 colspan 처리
+	var colModel = $("#gridList").jqGrid('getGridParam', 'colModel');
+	var cs_cnt, cs_text;
+	var selTerm = $('#sTerm').val();
+	if(selTerm == 'MON'){
+		cs_cnt = 12;
+		cs_text = '월별 주행거리(km/h)';
+	}
+	else {
+		cs_cnt = 0;
+		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) {
+			cs_cnt++;
+		}
+		cs_text = '년도별 주행거리(km/h)';
+	}
+	$("#gridList").jqGrid('setGroupHeaders', {
+		useColSpanStyle: true,
+			groupHeaders:[
+				{ startColumnName: colModel[1].name, numberOfColumns: cs_cnt, titleText: cs_text }
+		  ]
+  });
  	fn_init(); // grid 생성 후 화면 레이아웃 refresh
 }
 
 function fn_init() {
 	$('#grid').css('height', 'calc(100% - '+($('#form').height()+119)+'px)');
 	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
-	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-30);
+	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-57);
 }
 
 // 검색 옵션에 따른 데이터 검색

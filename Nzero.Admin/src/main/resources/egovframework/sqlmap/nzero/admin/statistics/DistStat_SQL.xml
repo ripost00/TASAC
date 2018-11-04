@@ -60,11 +60,11 @@
 		       SUM(DECODE(SMON,'11',ACNT,'')) AS M11, SUM(DECODE(SMON,'12',ACNT,'')) AS M12,
 		       SUM(ACNT) AS TOT
 		  FROM (
-		        SELECT USER_ID AS TRN, SUBSTR(STND_MON,1,4) AS SYEAR, SUBSTR(STND_MON,5,2) AS SMON, AUTO_DRIVING_DIST AS ACNT
+		        SELECT FN_CT_GET_AGENCY_NAME(USER_ID) AS TRN, SUBSTR(STND_MON,1,4) AS SYEAR, SUBSTR(STND_MON,5,2) AS SMON, AUTO_DRIVING_DIST AS ACNT
 		          FROM TB_ST_HT_USER_AUTO_MON
 		         WHERE 1=1
 		<isNotEmpty property="sKeyword">
-				   AND USER_ID LIKE '%'||#sKeyword#||'%'
+				   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>
 				   AND STND_MON LIKE #sDate#||'%'		           
 		       ) X
@@ -96,11 +96,11 @@
 
 	<select id="DistStatDAO.selectMonUserChart" parameterClass="paramMap" resultClass="egovMap">
 		/* DistStatDAO.selectMonUserChart */
-        SELECT USER_ID AS TRN, TO_CHAR(TO_DATE(STND_MON,'YYYYMM'),'MM')||'월' AS STERM, AUTO_DRIVING_DIST AS ACNT
+        SELECT FN_CT_GET_AGENCY_NAME(USER_ID) AS TRN, TO_CHAR(TO_DATE(STND_MON,'YYYYMM'),'MM')||'월' AS STERM, AUTO_DRIVING_DIST AS ACNT
           FROM TB_ST_HT_USER_AUTO_MON
          WHERE 1=1
 		<isNotEmpty property="sKeyword">
-		   AND USER_ID LIKE '%'||#sKeyword#||'%'
+		   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>
 		   AND STND_MON LIKE #sDate#||'%' 
 		 ORDER BY STERM, TRN
@@ -144,14 +144,14 @@
 	<select id="DistStatDAO.selectYearUser" parameterClass="paramMap" resultClass="egovMap" remapResults="true">
 		/* DistStatDAO.selectYearUser */
 		WITH PV AS (
-		SELECT USER_ID AS TRN, NVL(STND_YEAR,-1) AS SYEAR, SUM(AUTO_DRIVING_DIST) AS ACNT
+		SELECT FN_CT_GET_AGENCY_NAME(USER_ID) AS TRN, NVL(STND_YEAR,-1) AS SYEAR, SUM(AUTO_DRIVING_DIST) AS ACNT
 		  FROM TB_ST_HT_USER_AUTO_YEAR
 		 WHERE 1=1
 		<isNotEmpty property="sKeyword">
-		   AND USER_ID LIKE '%'||#sKeyword#||'%'
+		   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
 		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
-		 GROUP BY CUBE(USER_ID, STND_YEAR)	        
+		 GROUP BY CUBE(FN_CT_GET_AGENCY_NAME(USER_ID), STND_YEAR)	        
 		)
 		SELECT *
 		  FROM PV
@@ -184,11 +184,11 @@
 
 	<select id="DistStatDAO.selectYearUserChart" parameterClass="paramMap" resultClass="egovMap">
 		/* DistStatDAO.selectYearUserChart */
-		SELECT USER_ID AS TRN, STND_YEAR||'년' AS STERM, AUTO_DRIVING_DIST AS ACNT
+		SELECT FN_CT_GET_AGENCY_NAME(USER_ID) AS TRN, STND_YEAR||'년' AS STERM, AUTO_DRIVING_DIST AS ACNT
 		  FROM TB_ST_HT_USER_AUTO_YEAR
 		 WHERE 1=1
 		<isNotEmpty property="sKeyword">
-		   AND USER_ID LIKE '%'||#sKeyword#||'%'
+		   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
 		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
 		 ORDER BY STERM, TRN
