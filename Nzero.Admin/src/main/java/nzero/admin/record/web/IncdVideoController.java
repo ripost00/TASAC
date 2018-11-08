@@ -16,43 +16,43 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nzero.admin.egovframework.cmmn.model.SimpleData;
 import nzero.admin.egovframework.cmmn.web.BaseController;
-import nzero.admin.record.service.IncdHistService;
+import nzero.admin.record.service.IncdVideoService;
 
 @Controller
-public class IncdHistController extends BaseController {
+public class IncdVideoController extends BaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(IncdHistController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IncdVideoController.class);
 	
-	@Resource(name = "incdHistService")
-    private IncdHistService incdHistService;
+	@Resource(name = "incdVideoService")
+    private IncdVideoService incdVideoService;
 	
-	@RequestMapping(value="/record/incident/openIncdHist.do")
-    public String openIncdHist(HttpServletRequest request) {
-		return "record/incdHistList";
+	@RequestMapping(value="/record/video/openIncdVideo.do")
+    public String openIncdVideo(HttpServletRequest request) {
+		return "record/incdVideoList";
     }
 	
-	@RequestMapping(value="/record/incident/selectIncdHistList.do")
+	@RequestMapping(value="/record/video/selectIncdVideoList.do")
 	@ResponseBody
 	public ModelAndView selectIncdList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
 
-		return incdHistService.selectIncdList(paramMap);
+		return incdVideoService.selectIncdList(paramMap);
 	}
 
-	@RequestMapping(value="/record/incident/selectAccCarList.do")
+	@RequestMapping(value="/record/video/selectAccVideoList.do")
 	@ResponseBody
-	public ModelAndView selectAccCarList(HttpServletRequest request) throws Exception {
+	public ModelAndView selectAccVideoList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
 		
-		return incdHistService.selectAccCarList(paramMap);
+		return incdVideoService.selectVideoList(paramMap);
 	}
 
-	@RequestMapping(value="/record/incident/selectIncdHistExcelList.do")
+	@RequestMapping(value="/record/video/selectIncdVideoExcelList.do")
 	@ResponseBody
     public ModelAndView selectIncdExcelList(HttpServletRequest request, ModelMap model) throws Exception {
 	    SimpleData paramData = getSimpleData(request);
 	    	    
-	    ModelAndView excelMV = incdHistService.selectIncdExcelList(paramData);
+	    ModelAndView excelMV = incdVideoService.selectIncdExcelList(paramData);
 	    Map<String, Object> excelModel = excelMV.getModel();
 	    List<Object> excelList = (List) excelModel.get("rows");
 	    String[] columsNm = paramData.getString("columnsNm").split(",");
