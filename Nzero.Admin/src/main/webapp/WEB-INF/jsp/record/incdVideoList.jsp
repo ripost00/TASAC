@@ -116,6 +116,22 @@ function fn_searchFormMast(rowId) {
 	});
 }
 
+function fn_excel() {
+	var columnsNm = [], datafield = [];
+	for (var i=0; i<colModelMast.length-1; i++) {
+		columnsNm[i] = colModelMast[i].label;
+		datafield[i] = colModelMast[i].name;
+	}
+
+	$("#columnsNm").val(columnsNm);
+	$("#datafield").val(datafield);
+	$("#excelFileNm").val("<%=menuNm%>.xls");
+
+	var url = "/record/video/selectIncdVideoExcelList.do";
+	$("#searchForm").attr("action", url);
+	$("#searchForm").submit();
+}
+
 </script>
 </head>
 
@@ -148,7 +164,7 @@ function fn_searchFormMast(rowId) {
 				<input type="text" style="width: 150px; height: 19px;" id="sTmpAg" name="sTmpAg" value=""/>
 			</fieldset>
 			<fieldset>
-				<span class="tit">기간</span>
+				<span class="tit">사고일시</span>
 				<input type="text" style="width: 70px; height: 19px;" id="stdate" name="stdate" value="" /> ~
 				<input type="text" style="width: 70px; height: 19px;" id="eddate" name="eddate" value="" />
 			</fieldset>

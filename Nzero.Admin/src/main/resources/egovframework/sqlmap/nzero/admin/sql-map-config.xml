@@ -8,6 +8,8 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/Menu_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/AuthMap_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/Param_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/record/UpldHist_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/record/DownHist_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/record/DrvgHist_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/record/DevcHist_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/record/IncdHist_SQL.xml"></sqlMap>

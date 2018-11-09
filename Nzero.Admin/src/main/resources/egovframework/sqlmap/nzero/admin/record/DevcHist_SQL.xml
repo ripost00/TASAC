@@ -24,7 +24,7 @@
 			A.TMP_RACE_NUMBER = #sTmpNo#
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="sTmpAg">
-			A.TMP_RACE_AGENCY LIKE '%'||#"sTmpAg"#||'%'
+			A.TMP_RACE_AGENCY LIKE '%'||#sTmpAg#||'%'
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="stdate">
 			A.MODIFY_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
@@ -50,7 +50,7 @@
 			A.TMP_RACE_NUMBER = #sTmpNo#
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="sTmpAg">
-			A.TMP_RACE_AGENCY LIKE '%'||#"sTmpAg"#||'%'
+			A.TMP_RACE_AGENCY LIKE '%'||#sTmpAg#||'%'
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="stdate">
 			A.MODIFY_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
