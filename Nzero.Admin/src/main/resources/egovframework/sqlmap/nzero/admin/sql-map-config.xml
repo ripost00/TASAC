@@ -17,4 +17,4 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/AcidStat_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/DistStat_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/ControlStat_SQL.xml"></sqlMap>
-</sqlMapConfig>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/Notice_sql.xml"></sqlMap></sqlMapConfig>

@@ -7,6 +7,15 @@
 	        <map>
 	        	<entry key="pageUnit" value="10"/>
 	        	<entry key="pageSize" value="10"/>
+	        	<!-- 파일 업로드 경로 --> 
+				<!-- 파일 업로드 경로 : 개발서버--><entry key="pathUpload" value="D:\\JavaDev\\eGovFrameDev\\TASAC\Nzero.Admin\\src\\main\\webapp\\upload\\" />
+				<!-- 파일 업로드 경로 : 운영서버--><!-- <entry key="pathUpload" value="/usr/local/apache-tomcat-7.0.72/webapps/upload/" /> -->
+
+	        	<!-- 업로드 구분자 --> 
+				<!-- 업로드 구분자 : 개발서버--><entry key="pathLetter" value="\\" />
+				<!-- 업로드 구분자 : 운영서버--><!-- <entry key="pathLetter" value="/" /> -->
+	        	<!-- 파일업로드 사이즈 제한 (Kbyte) --> 
+	        	<entry key="uploadSize" value="1048576"/>	        	
 	        </map>
 		</property>
 	</bean>
