@@ -63,7 +63,7 @@
 						<td><input type="text" style="width: 100%; height: 19px;" id="boardTitle" name="boardTitle" value="" caption="제목" required="required"/></td>
 					</tr>
 					<tr>
-						<th>내용</th>
+						<th>최신동향</th>
 						<td class="write_editor"><textarea style="width:100%; height:342px;background-color:#fff; display:none; resize: none;" id="boardContents" name="boardContents" value="" caption="내용"></textarea></td>
 					</tr>
 					<tr>
@@ -151,7 +151,7 @@ $(document).ready(function() {
 });
 
 function fn_mkeGrid() {
-	commonMakeGrid("gridList", "/system/notice/selectNoticeList.do", colModel, true
+	commonMakeGrid("gridList", "/system/newTrends/selectNewTrendsList.do", colModel, true
 		, function(data) {
 			if ($("#rowId").val() == "") $("#rowId").val("1");
 			$("#gridList").jqGrid("setSelection", $("#rowId").val());
@@ -197,7 +197,7 @@ function fn_search(selectNode) {
 function fn_searchForm(rowId) {
 	var rowData = $("#gridList").jqGrid("getRowData", rowId);
 
-	commonAjax({ "boardSeq": rowData.bdwrSeq }, "/system/notice/selectNoticeInfo.do", function(returnData, textStatus, jqXHR) {
+	commonAjax({ "boardSeq": rowData.bdwrSeq }, "/system/newTrends/selectNewTrendsInfo.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
 
 		var formData = returnData.rows[0];
@@ -252,8 +252,8 @@ function fn_save() {
 	var data = new FormData($("#detailForm")[0]);
 	var requestUrl = "";
 
-	if($("#saveMode").val() == "I") requestUrl = "/system/notice/insertNoticeInfo.do";
-	else if($("#saveMode").val() == "U") requestUrl = "/system/notice/updateNoticeInfo.do";
+	if($("#saveMode").val() == "I") requestUrl = "/system/newTrends/insertNewTrendsInfo.do";
+	else if($("#saveMode").val() == "U") requestUrl = "/system/newTrends/updateNewTrendsInfo.do";
 
 	if(requestUrl != "") {
 		commonFormAjax(data, requestUrl, function(returnData, textStatus, jqXHR) {
@@ -272,7 +272,7 @@ function fn_delete() {
 
 	var data = $("#detailForm").serializeArray();
 
-	commonAjax(data ,"/system/notice/deleteNoticeInfo.do" , function(returnData, textStatus, jqXHR) {
+	commonAjax(data ,"/system/newTrends/deleteNewTrendsInfo.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});

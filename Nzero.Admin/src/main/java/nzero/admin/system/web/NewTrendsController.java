@@ -17,44 +17,44 @@ import egovframework.rte.fdl.property.EgovPropertyService;
 import nzero.admin.egovframework.cmmn.model.SimpleData;
 import nzero.admin.egovframework.cmmn.web.BaseController;
 import nzero.admin.egovframework.cmmn.util.FileUtil;
-import nzero.admin.system.service.NoticeService;
+import nzero.admin.system.service.NewTrendsService;
 
 @Controller
-public class NoticeController extends BaseController {
+public class NewTrendsController extends BaseController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(NoticeController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NewTrendsController.class);
 
-	@Resource(name = "noticeService")
-    private NoticeService noticeService;
+	@Resource(name = "newTrendsService")
+    private NewTrendsService newTrendsService;
 	
 	/** EgovPropertyService */
 	@Resource(name = "propertiesService") //환경 설정
 	protected EgovPropertyService propertiesService;
 
-	@RequestMapping(value="/system/notice/openNotice.do")
-    public String openNotice(HttpServletRequest request) {
-		return "system/noticeList";
+	@RequestMapping(value="/system/newTrends/openNewTrends.do")
+    public String openNewTrends(HttpServletRequest request) {
+		return "system/newTrendsList";
     }
 	
-	@RequestMapping(value="/system/notice/selectNoticeList.do")
+	@RequestMapping(value="/system/newTrends/selectNewTrendsList.do")
 	@ResponseBody
-	public ModelAndView selectNoticeList(HttpServletRequest request) throws Exception {
+	public ModelAndView selectNewTrendsList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
 		
-		return noticeService.selectNoticeList(paramMap);
+		return newTrendsService.selectNewTrendsList(paramMap);
 	}	
 	
-	@RequestMapping(value="/system/notice/selectNoticeInfo.do")
+	@RequestMapping(value="/system/newTrends/selectNewTrendsInfo.do")
 	@ResponseBody
-	public ModelAndView selectNoticeInfo(HttpServletRequest request) throws Exception {
+	public ModelAndView selectNewTrendsInfo(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
 		
-		return noticeService.selectNoticeInfo(paramMap);
+		return newTrendsService.selectNewTrendsInfo(paramMap);
 	}
 	
-	@RequestMapping(value="/system/notice/insertNoticeInfo.do")
+	@RequestMapping(value="/system/newTrends/insertNewTrendsInfo.do")
 	@ResponseBody
-	public ModelAndView insertNoticeInfo(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) throws Exception {
+	public ModelAndView insertNewTrendsInfo(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) throws Exception {
 		
 		String pathLetter = propertiesService.getString("pathLetter"); 	// 구분자 : "/", "\\"
 		String pathUpload = propertiesService.getString("pathUpload");
@@ -70,12 +70,12 @@ public class NoticeController extends BaseController {
 			String file_name = FileUtil.transferUploadFileNew(files.get("file_info"), uploadPath, newFileNM);
 			paramMap.setString("attachFileNm", file_name);
 		}
-		return noticeService.insertNotice(paramMap);
+		return newTrendsService.insertNewTrends(paramMap);
 	}
 	
-	@RequestMapping(value="/system/notice/updateNoticeInfo.do")
+	@RequestMapping(value="/system/newTrends/updateNewTrendsInfo.do")
 	@ResponseBody
-	public ModelAndView updateNoticeInfo(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) throws Exception {
+	public ModelAndView updateNewTrendsInfo(MultipartHttpServletRequest multipartRequest, HttpServletRequest request) throws Exception {
 		
 		String pathLetter = propertiesService.getString("pathLetter"); 	// 구분자 : "/", "\\"
 		String pathUpload = propertiesService.getString("pathUpload");
@@ -91,13 +91,13 @@ public class NoticeController extends BaseController {
 			String file_name = FileUtil.transferUploadFileNew(files.get("file_info"), uploadPath, newFileNM);
 			paramMap.setString("attachFileNm", file_name);
 		}
-		return noticeService.updateNotice(paramMap);
+		return newTrendsService.updateNewTrends(paramMap);
 	}
 	
-	@RequestMapping(value="/system/notice/deleteNoticeInfo.do")
+	@RequestMapping(value="/system/newTrends/deleteNewTrendsInfo.do")
 	@ResponseBody
-	public ModelAndView deleteNoticeInfo(HttpServletRequest request) throws Exception {
+	public ModelAndView deleteNewTrendsInfo(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
-		return noticeService.deleteNotice(paramMap);
+		return newTrendsService.deleteNewTrends(paramMap);
 	}
 }
