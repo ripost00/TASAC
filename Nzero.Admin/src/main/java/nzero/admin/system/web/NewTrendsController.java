@@ -58,7 +58,7 @@ public class NewTrendsController extends BaseController {
 		
 		String pathLetter = propertiesService.getString("pathLetter"); 	// 구분자 : "/", "\\"
 		String pathUpload = propertiesService.getString("pathUpload");
-		String uploadPath = pathUpload + "notc" + pathLetter;
+		String uploadPath = pathUpload + "trnd" + pathLetter;
 		
 		SimpleData paramMap = getSimpleData(request);
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
@@ -79,7 +79,7 @@ public class NewTrendsController extends BaseController {
 		
 		String pathLetter = propertiesService.getString("pathLetter"); 	// 구분자 : "/", "\\"
 		String pathUpload = propertiesService.getString("pathUpload");
-		String uploadPath = pathUpload + "notc" + pathLetter;
+		String uploadPath = pathUpload + "trnd" + pathLetter;
 		
 		SimpleData paramMap = getSimpleData(request);
 		Map<String, MultipartFile> files = multipartRequest.getFileMap();
