@@ -56,7 +56,7 @@ $(document).ready(function() {
 });
 
 function fn_init() {
-//	$("#grid1").css("height", "calc(100% - "+($("#form").height()+119)+"px)");
+	$('#grid').css('height', 'calc(100% - 109px)');
 	$("#gridList1").jqGrid("setGridWidth", $("#grid1").width()-2);
 	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-30);
 }
@@ -141,7 +141,7 @@ function fn_excel() {
 		</form>
 	</div>
 
-	<div id="grid1" class="float_left w100p" style="height: calc(100% - 60.5px);">
+	<div id="grid1" class="float_left w100p">
 		<table id="gridList1"></table>
 	</div>
 
