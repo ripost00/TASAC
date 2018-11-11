@@ -36,7 +36,7 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
-	commonMakeGrid("gridList1", "/record/uploadhitory/selectUpldHistList.do", colModelMast, false, function(data) {
+	commonMakeGrid("gridList1", "/record/uploadhitory/selectUpldHistList.do", colModelMast, true, function(data) {
 		if ($("#rowId").val() == "") $("#rowId").val("1");
 		$("#gridList1").jqGrid("setSelection", $("#rowId").val());
 	}
@@ -56,7 +56,7 @@ $(document).ready(function() {
 });
 
 function fn_init() {
-	$('#grid').css('height', 'calc(100% - 109px)');
+	$('#grid1').css('height', 'calc(100% - 109px)');
 	$("#gridList1").jqGrid("setGridWidth", $("#grid1").width()-2);
 	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-30);
 }
