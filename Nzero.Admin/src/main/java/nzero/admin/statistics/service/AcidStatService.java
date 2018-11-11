@@ -19,19 +19,6 @@ public class AcidStatService extends EgovAbstractServiceImpl {
 	@Resource(name="commonDAO")
     private CommonDAO commonDAO;
 	
-//	public ModelAndView selectAcidStatMonList(SimpleData paramMap) throws Exception {
-//        return commonDAO.selectModel("AcidStatDAO.selectAcidStatMonList", paramMap);
-//    }
-//	public ModelAndView selectAcidStatMonListChart(SimpleData paramMap) throws Exception {
-//        return commonDAO.selectModel("AcidStatDAO.selectAcidStatMonListChart", paramMap);
-//    }
-//	
-//	public ModelAndView selectAcidStatYearList(SimpleData paramMap) throws Exception {
-//        return commonDAO.selectModel("AcidStatDAO.selectAcidStatYearList", paramMap);
-//    }
-//	public ModelAndView selectAcidStatYearListChart(SimpleData paramMap) throws Exception {
-//        return commonDAO.selectModel("AcidStatDAO.selectAcidStatYearListChart", paramMap);
-//    }
 	
 	//차량 월별 사고건수 
 	public ModelAndView selectMonTemp(SimpleData paramMap) throws Exception {

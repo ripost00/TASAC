@@ -28,6 +28,10 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
+	//달력 이벤트
+	$( "#stdate" ).datepicker().datepicker("setDate", -1);
+	$( "#eddate" ).datepicker().datepicker("setDate", new Date());
+
 	commonMakeGrid("gridList", "/system/rsrc/selectSystemLogList.do", colModelMast, true
 		, function(data) {
 			if ($("#rowId").val() == "") $("#rowId").val("1");
@@ -36,15 +40,9 @@ $(document).ready(function() {
 		, function(rowid, status, e) {
 		}
 	);
-
 	fn_init();
-
+	fn_search();
 	$("#sKeyword").focus();
-
-	//달력 이벤트
-	$( "#stdate" ).datepicker().datepicker("setDate", -1);
-	$( "#eddate" ).datepicker().datepicker("setDate", new Date());
-
 });
 
 function fn_init() {

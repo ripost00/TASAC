@@ -41,6 +41,7 @@ $(document).ready(function() {
 	$('#eDate').yearpicker();
 	// 현재 검색옵션(구분, 년/월단위, 기간)에 따른 초기 grid 모양 설정
 	fn_makeGrid();
+	fn_search();
 });
 
 // 현재 검색옵션에 따른 db 테이블명 return
@@ -176,8 +177,6 @@ function fn_makeGrid() {
 			$('#gridList').jqGrid('setSelection', $('#rowId').val());
 			}
 		, function(rowid, status, e) {
-			// 그리드 목록 선택 시 이벤트 이지만. 본 화면에선 딱히 할게 없다....
-			// fn_searchForm(rowid);
 		}
 	);
 	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
@@ -280,23 +279,6 @@ function drawChart(inputData) {
 		var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
 		chart.draw(yearWiseData, {});
 	}
-}
-
-function fn_searchForm(rowId) {
-	// var rowData = $('#gridList').jqGrid('getRowData', rowId);
-	//
-	// commonAjax({ 'sAuthId': rowData.authId }, '/system/auth/selectAuthList.do', function(returnData, textStatus, jqXHR) {
-	// 	if (returnData.rows.length == 0) return;
-	//
-	// 	var formData = returnData.rows[0];
-	// 	$('#saveMode').val('U');
-	//
-	// 	$('#authId').val(formData.authId);
-	// 	$('#authNm').val(formData.authNm);
-	// 	$('#authorDc').val(formData.authorDc);
-	// 	$('#dispOrdr').val(formData.dispOrdr);
-	// 	$('#useYn').val(formData.useYn);
-	// });
 }
 
 function fn_excel() {
