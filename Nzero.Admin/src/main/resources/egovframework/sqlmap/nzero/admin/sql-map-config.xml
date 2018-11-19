@@ -17,4 +17,9 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/AcidStat_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/DistStat_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/statistics/ControlStat_SQL.xml"></sqlMap>
-<sqlMap resource="egovframework/sqlmap/nzero/admin/system/Notice_sql.xml"></sqlMap><sqlMap resource="egovframework/sqlmap/nzero/admin/system/NewTrends_sql.xml"></sqlMap><sqlMap resource="egovframework/sqlmap/nzero/admin/system/SvrResource_SQL.xml"></sqlMap><sqlMap resource="egovframework/sqlmap/nzero/admin/system/SystemLog_SQL.xml"></sqlMap></sqlMapConfig>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/Notice_sql.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/NewTrends_sql.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/SvrResource_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/SystemLog_SQL.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/main/Main_sql.xml"></sqlMap>
+</sqlMapConfig>

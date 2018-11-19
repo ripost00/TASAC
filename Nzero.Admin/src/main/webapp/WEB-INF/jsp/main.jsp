@@ -171,6 +171,18 @@ function fn_goMain(objId, menuId) {
 		fn_goMainPage(); //메인화면 표출
 		fn_makeMenu("00000"); //메뉴생성
 		fn_hideMenu(false); //메뉴숨김
+	}
+	else if (menuId == "A0000") {
+		$("#content").empty();
+		$("#tabs").empty();
+		$("#tabs").hide();
+		var body_h = document.body.clientHeight;
+		var content_h = body_h - 60;
+		content_h = content_h + "px";
+		$("#content").css("height", content_h);
+
+		fn_goMainPage(); //메인화면 표출
+		fn_hideMenu(false); //메뉴숨김
 	} else {
 		if (objId != null) {
 			$("#"+objId).addClass("tmenu_on");
@@ -183,7 +195,7 @@ function fn_goMain(objId, menuId) {
 		$("#content").css("height", content_h);
 
 		fn_makeMenu(menuId); //메뉴생성
-        fn_hideMenu(true); //메뉴펼침
+    fn_hideMenu(true); //메뉴펼침
 	}
 }
 
