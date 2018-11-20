@@ -107,6 +107,7 @@ function fn_search() {
 
 function fn_searchFormMast(rowId) {
 	var rowData = $("#gridList1").jqGrid("getRowData", rowId);
+	$("#sAccId").val(rowData.accId);
 
 	commonAjax({ "sAccId": rowData.accId }, "/record/incident/selectIncdHistList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
@@ -147,6 +148,12 @@ function fn_excel() {
 	$("#searchForm").submit();
 }
 
+function fn_report() {
+	var url = "/record/incident/selectIncdHistReport.do";
+	$("#searchForm").attr("action", url);
+	$("#searchForm").submit();
+}
+
 </script>
 </head>
 
@@ -156,6 +163,8 @@ function fn_excel() {
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
 
 		<div class="contBtn1">
+			<a href="javascript:fn_report()" class="btn_template_down" title="보고서 출력"></a>
+			<i></i>
 			<a href="javascript:fn_initClear()" class="btn_refresh" title="초기화"></a>
 			<i></i>
 			<a href="javascript:fn_search()" class="btn_search" title="조회"></a>
@@ -169,6 +178,7 @@ function fn_excel() {
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
+			<input type="hidden" id="sAccId" name="sAccId" value="">
 
 			<fieldset>
 				<span class="tit">임시운행등록번호</span>

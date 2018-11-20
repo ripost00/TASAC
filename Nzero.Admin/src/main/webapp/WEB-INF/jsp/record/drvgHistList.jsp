@@ -123,6 +123,8 @@ function fn_search() {
 
 function fn_searchFormMast(rowId) {
 	var rowData = $("#gridList1").jqGrid("getRowData", rowId);
+	$("#sStdDt").val(rowData.stndDtKey);
+	$("#sDrvNo").val(rowData.tmpRaceNumber);
 
 	commonAjax({ "sStdDt": rowData.stndDtKey, "sTmpNo": rowData.tmpRaceNumber }, "/record/driving/selectDrvgHistList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
@@ -181,6 +183,12 @@ function fn_excel() {
 	$("#searchForm").submit();
 }
 
+function fn_report() {
+	var url = "/record/driving/selectDrvgHistReport.do";
+	$("#searchForm").attr("action", url);
+	$("#searchForm").submit();
+}
+
 </script>
 </head>
 
@@ -190,6 +198,8 @@ function fn_excel() {
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
 
 		<div class="contBtn1">
+			<a href="javascript:fn_report()" class="btn_template_down" title="보고서 출력"></a>
+			<i></i>
 			<a href="javascript:fn_initClear()" class="btn_refresh" title="초기화"></a>
 			<i></i>
 			<a href="javascript:fn_search()" class="btn_search" title="조회"></a>
@@ -203,6 +213,8 @@ function fn_excel() {
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
+			<input type="hidden" id="sStdDt" name="sStdDt" value="">
+			<input type="hidden" id="sDrvNo" name="sDrvNo" value="">
 
 			<fieldset>
 				<span class="tit">임시운행등록번호</span>
@@ -221,6 +233,8 @@ function fn_excel() {
 	</div>
 
 	<div id="grid0" class="float_left" style="width: calc(100% - 15px); height: calc(100% - 15px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
+	<form id="detailForm" name="detailForm" method="post">
+	<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
 		<div id="grid1" class="float_left" style="width: calc(100% - 10px); height: calc(100% - 500px); padding: 10px;">
 			<p class="float_left w100p" style="font-weight: bold;">▶ 운행정보</p>
 			<div id="grid_1" class="float_left" style="width: 100%; height: 100%;">
@@ -249,6 +263,7 @@ function fn_excel() {
 			</div>
 		</div>
 
+	</form>
 	</div>
 
 
