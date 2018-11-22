@@ -22,4 +22,5 @@
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/SvrResource_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/system/SystemLog_SQL.xml"></sqlMap>
 <sqlMap resource="egovframework/sqlmap/nzero/admin/main/Main_sql.xml"></sqlMap>
+<sqlMap resource="egovframework/sqlmap/nzero/admin/system/Grade_SQL.xml"></sqlMap>
 </sqlMapConfig>
