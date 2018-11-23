@@ -13,12 +13,11 @@ function commonAjax(oData, sUrl, successCallback, errorCallback, bAsync) {
 	    },
 	    success: function(returnData, textStatus, jqXHR) {
 	    	if (returnData.interceptorMsg != undefined) {
-				alert(returnData.interceptorMsg);
+					// alert(returnData.interceptorMsg);
 
-				top.location.replace("/");
-				return;
-			}
-
+					top.location.replace("/");
+					return;
+				}
 	    	successCallback(returnData, textStatus, jqXHR);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -50,11 +49,11 @@ function commonFormAjax(oData, sUrl, successCallback, errorCallback, bAsync) {
 	    },
 	    success: function(returnData, textStatus, jqXHR) {
 	    	if (returnData.interceptorMsg != undefined) {
-				alert(returnData.interceptorMsg);
+					// alert(returnData.interceptorMsg);
 
-				top.location.replace("/");
-				return;
-			}
+					top.location.replace("/");
+					return;
+				}
 
 	    	successCallback(returnData, textStatus, jqXHR);
 		},
@@ -77,6 +76,7 @@ function commonMakeGridParam(sGridId, sUrl, oColNames, oColModel, oData, bShrink
 		mtype: "POST",
 		datatype: "local",
 		viewrecords: false,
+		rowNum: -1,
 		loadonce:false,
 		shrinkToFit: bShrinkToFit,
 		colNames: oColNames,
@@ -84,7 +84,7 @@ function commonMakeGridParam(sGridId, sUrl, oColNames, oColModel, oData, bShrink
 		postData: oData,
 	  loadComplete: function(data) {
 	   	if (data.interceptorMsg != undefined) {
-				alert(data.interceptorMsg);
+				// alert(data.interceptorMsg);
 				top.location.replace("/");
 				return;
 			}
@@ -118,11 +118,12 @@ function commonMakeGrid(sGridId, sUrl, oColModel, bShrinkToFit, loadCompleteCall
 	   	mtype: "POST",
 		datatype: "local",
 	   	viewrecords: false,
+			rowNum: -1,
 	   	shrinkToFit: bShrinkToFit,
 	  	colModel: oColModel,
 	    loadComplete: function(data) {
 	    	if (data.interceptorMsg != undefined) {
-				alert(data.interceptorMsg);
+				// alert(data.interceptorMsg);
 
 				top.location.replace("/");
 				return;

@@ -108,20 +108,51 @@ function fn_checkTree(rowId) {
 	$("#authId").val(rowData.authId);
 
 	commonAjax({ "authId": rowData.authId }, "/system/authMap/selectAuthMapList.do", function(returnData, textStatus, jqXHR) {
+		var tree = $('#jsTree').jstree();
 		for (var i=0; i<returnData.rows.length; i++) {
-			$("#jsTree").jstree("check_node", returnData.rows[i].menuId);
+			var node = tree.get_node(returnData.rows[i].menuId);
+			if(!tree.is_parent(node)) tree.check_node(node);
 		}
 	});
 }
 
 function fn_save() {
-	var menuIds = $("#jsTree").jstree(true).get_selected();
+	// var menuIds = $("#jsTree").jstree().get_selected();
+	function makeSelectedTree(arrIds, tree) {
+		var menuIds = [];
+		var temaArr = [];
+		arrIds.forEach(function(nodeId) {
+			var node = tree.get_node(nodeId);
+		  var parent_node = tree.get_node(node.parent);
+			if(!tree.is_checked(parent_node)) {
+				if(parent_node.id != '#') {
+					temaArr.push(parent_node.id);
+				}
+				temaArr.push(node.id);
+			}
+			else {
+				temaArr.push(node.id);
+			}
+		});
+		temaArr.forEach(function(id) {
+			if($.inArray(id,menuIds) === -1) menuIds.push(id);
+		});
+		return menuIds;
+	}
+	var tree = $('#jsTree').jstree();
+	var firstIds = makeSelectedTree(tree.get_selected(), tree);
+	var menuIds = makeSelectedTree(firstIds, tree);
 
 	var data = $("#detailForm").serializeArray();
 	data.push({ name: "menuIds", value: menuIds });
 
 	commonAjax(data ,"/system/authMap/transactionAuthMap.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
+		parent.$(".tmenu").empty();
+		parent.fn_makeMenu("00000");
+		setTimeout(function(){
+  		if(parent.$("#tmenu_1")[0]) parent.$("#tmenu_1")[0].click();
+		}, 1000);
 		fn_search();
 	});
 }

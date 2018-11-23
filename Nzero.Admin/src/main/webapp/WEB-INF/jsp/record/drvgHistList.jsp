@@ -47,7 +47,7 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
-	commonMakeGrid("gridList1", "/record/driving/selectDrvgHistList.do", colModelMast, false, function(data) {
+	commonMakeGrid("gridList1", "/record/driving/selectDrvgHistList.do", colModelMast, true, function(data) {
 		if ($("#rowId").val() == "") $("#rowId").val("1");
 		$("#gridList1").jqGrid("setSelection", $("#rowId").val());
 	}
@@ -55,15 +55,15 @@ $(document).ready(function() {
 		fn_searchFormMast(rowid);
 	});
 
-	commonMakeGrid("gridList2", "/record/driving/selectAutoDrivingList.do", colModelDtl2, false, function(data) {
+	commonMakeGrid("gridList2", "/record/driving/selectAutoDrivingList.do", colModelDtl2, true, function(data) {
 		$("#gridList2").jqGrid("setSelection", "1");
 	});
 
-	commonMakeGrid("gridList3", "/record/driving/selectCtrChangeList.do", colModelDtl3, false, function(data) {
+	commonMakeGrid("gridList3", "/record/driving/selectCtrChangeList.do", colModelDtl3, true, function(data) {
 		$("#gridList3").jqGrid("setSelection", "1");
 	});
 
-	commonMakeGrid("gridList4", "/record/driving/selectCtrChangeDtlList.do", colModelDtl4, false, function(data) {
+	commonMakeGrid("gridList4", "/record/driving/selectCtrChangeDtlList.do", colModelDtl4, true, function(data) {
 		$("#gridList4").jqGrid("setSelection", "1");
 	});
 
@@ -84,16 +84,16 @@ $(document).ready(function() {
 function fn_init() {
 //	$("#grid1").css("height", "calc(100% - "+($("#form").height()+119)+"px)");
 	$("#gridList1").jqGrid("setGridWidth", $("#grid1").width()-2);
-	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-30);
+	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-45);
 
 	$("#gridList2").jqGrid("setGridWidth", $("#grid2").width()-2);
-	$("#gridList2").jqGrid("setGridHeight", $("#grid2").height()-30);
+	$("#gridList2").jqGrid("setGridHeight", $("#grid2").height()-45);
 
 	$("#gridList3").jqGrid("setGridWidth", $("#grid3").width()-2);
-	$("#gridList3").jqGrid("setGridHeight", $("#grid3").height()-30);
+	$("#gridList3").jqGrid("setGridHeight", $("#grid3").height()-45);
 
 	$("#gridList4").jqGrid("setGridWidth", $("#grid4").width()-2);
-	$("#gridList4").jqGrid("setGridHeight", $("#grid4").height()-30);
+	$("#gridList4").jqGrid("setGridHeight", $("#grid4").height()-45);
 }
 
 function fn_initClear() {
@@ -232,41 +232,36 @@ function fn_report() {
 		</form>
 	</div>
 
-	<div id="grid0" class="float_left" style="width: calc(100% - 15px); height: calc(100% - 15px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
-	<form id="detailForm" name="detailForm" method="post">
-	<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
-		<div id="grid1" class="float_left" style="width: calc(100% - 10px); height: calc(100% - 500px); padding: 10px;">
-			<p class="float_left w100p" style="font-weight: bold;">▶ 운행정보</p>
-			<div id="grid_1" class="float_left" style="width: 100%; height: 100%;">
-				<table id="gridList1"></table>
-			</div>
+	<div id="grid1" class="float_left" style="width: calc(100%); height: calc(50%);">
+		<form id="detailForm" name="detailForm" method="post">
+		<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
+		<p class="float_left w100p" style="font-weight: bold;">▶ 운행정보</p>
+		<div id="grid_1" class="float_left" style="width: calc(100%); height: calc(100%);">
+			<table id="gridList1"></table>
 		</div>
-
-		<div id="grid2" class="float_left" style="width: calc(25% - 50px); height: 360px; border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 20px;">
-			<p class="float_left w100p" style="font-weight: bold;">▶ 월별 자율모드주행거리</p>
-			<div id="grid_2" class="float_left bottom" style="width: 100%; height: 100%;">
-				<table id="gridList2"></table>
-			</div>
-		</div>
-
-		<div id="grid3" class="float_left" style="width: calc(25% - 50px); height: 360px; border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 20px;">
-			<p class="float_left w100p" style="font-weight: bold;">▶ 월별 제어권 전환 횟수</p>
-			<div id="grid_3" class="float_left bottom" style="width: 100%; height: 100%;">
-				<table id="gridList3"></table>
-			</div>
-		</div>
-
-		<div id="grid4" class="float_right" style="float: right; width: calc(50% - 35px); height: 360px; border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 20px;">
-			<p class="float_left w100p" style="font-weight: bold;">▶ 제어권 전환 상세정보</p>
-			<div id="grid_4" class="float_left" style="width: 100%; height: 100%;">
-				<table id="gridList4"></table>
-			</div>
-		</div>
-
-	</form>
+		</form>
 	</div>
 
+	<div id="grid2" class="float_left" style="width: calc(25% - 27px); height: calc(36%); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px; margin-top: 10px;">
+		<p class="float_left w100p" style="font-weight: bold;">▶ 월별 자율모드주행거리</p>
+		<div id="grid_2" class="float_left bottom" style="width: calc(100%); height: calc(100%);">
+			<table id="gridList2"></table>
+		</div>
+	</div>
 
+	<div id="grid3" class="float_left" style="width: calc(25% - 27px); height: calc(36%); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px; margin-top: 10px; margin-left: 10px;">
+		<p class="float_left w100p" style="font-weight: bold;">▶ 월별 제어권 전환 횟수</p>
+		<div id="grid_3" class="float_left bottom" style="width: calc(100%); height: calc(100%);">
+			<table id="gridList3"></table>
+		</div>
+	</div>
+
+	<div id="grid4" class="float_left" style="width: calc(50% - 33px); height: calc(36%); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px; margin-top: 10px; margin-left: 10px;">
+		<p class="float_left w100p" style="font-weight: bold;">▶ 제어권 전환 상세정보</p>
+		<div id="grid_4" class="float_left" style="width: calc(100%); height: calc(100%);">
+			<table id="gridList4"></table>
+		</div>
+	</div>
 </div>
 </body>
 </html>
