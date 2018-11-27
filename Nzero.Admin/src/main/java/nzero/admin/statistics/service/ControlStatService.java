@@ -28,6 +28,16 @@ public class ControlStatService extends EgovAbstractServiceImpl {
     }
 	//----------------------------------------------------------------------------
 	
+	//1000km별 제어권전환 횟수 -------------------------------------------------------
+	public ModelAndView selectMonCnt(SimpleData paramMap) throws Exception {
+        return commonDAO.selectModel("ControlStatDAO.selectMonCnt", paramMap);
+    }
+	//1000km별 제어권전환 횟수 그래프
+	public ModelAndView selectMonCntChart(SimpleData paramMap) throws Exception {
+        return commonDAO.selectModel("ControlStatDAO.selectMonCntChart", paramMap);
+    }
+	//----------------------------------------------------------------------------
+	
 	//차량별 월별 자율모드 주행거리 -------------------------------------------------------
 	public ModelAndView selectMonTemp(SimpleData paramMap) throws Exception {
         return commonDAO.selectModel("ControlStatDAO.selectMonTemp", paramMap);
@@ -55,6 +65,16 @@ public class ControlStatService extends EgovAbstractServiceImpl {
 	//전체 년별 자율모드 주행거리 그래프
 	public ModelAndView selectYearAllChart(SimpleData paramMap) throws Exception {
         return commonDAO.selectModel("ControlStatDAO.selectYearAllChart", paramMap);
+    }
+	//----------------------------------------------------------------------------
+	
+	//1000km별 년별 제어권전환횟수 -------------------------------------------------------
+	public ModelAndView selectYearCnt(SimpleData paramMap) throws Exception {
+        return commonDAO.selectModel("ControlStatDAO.selectYearCnt", paramMap);
+    }
+	//1000km별 년별 제어권전환횟수 그래프
+	public ModelAndView selectYearCntChart(SimpleData paramMap) throws Exception {
+        return commonDAO.selectModel("ControlStatDAO.selectYearCntChart", paramMap);
     }
 	//----------------------------------------------------------------------------
 	

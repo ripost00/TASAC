@@ -41,6 +41,9 @@ public class ControlStatController extends BaseController {
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectMonAll(paramMap);
 		}
+		if (paramMap.getString("sType").equals("SEL_CNT")) {
+			mv = controlStatService.selectMonCnt(paramMap);
+		}
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = controlStatService.selectMonTemp(paramMap);
 		}
@@ -58,6 +61,9 @@ public class ControlStatController extends BaseController {
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectMonAllChart(paramMap);
 		}
+		if (paramMap.getString("sType").equals("SEL_CNT")) {
+			mv = controlStatService.selectMonCntChart(paramMap);
+		}
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = controlStatService.selectMonTempChart(paramMap);
 		}
@@ -74,6 +80,9 @@ public class ControlStatController extends BaseController {
 		ModelAndView excelMV = null;
 		if (paramData.getString("sType").equals("SEL_ALL")) {
 			excelMV = controlStatService.selectMonAll(paramData);
+		}
+		if (paramData.getString("sType").equals("SEL_CNT")) {
+			excelMV = controlStatService.selectMonCnt(paramData);
 		}
 		if (paramData.getString("sType").equals("SEL_TEMP")) {
 			excelMV = controlStatService.selectMonTemp(paramData);
@@ -104,6 +113,9 @@ public class ControlStatController extends BaseController {
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectYearAll(paramMap);
 		}
+		if (paramMap.getString("sType").equals("SEL_CNT")) {
+			mv = controlStatService.selectYearCnt(paramMap);
+		}
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = controlStatService.selectYearTemp(paramMap);
 		}
@@ -121,6 +133,9 @@ public class ControlStatController extends BaseController {
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectYearAllChart(paramMap);
 		}
+		if (paramMap.getString("sType").equals("SEL_CNT")) {
+			mv = controlStatService.selectYearCntChart(paramMap);
+		}
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = controlStatService.selectYearTempChart(paramMap);
 		}
@@ -137,6 +152,9 @@ public class ControlStatController extends BaseController {
 		ModelAndView excelMV = null;
 		if (paramData.getString("sType").equals("SEL_ALL")) {
 			excelMV = controlStatService.selectYearAll(paramData);
+		}
+		if (paramData.getString("sType").equals("SEL_CNT")) {
+			excelMV = controlStatService.selectYearCnt(paramData);
 		}
 		if (paramData.getString("sType").equals("SEL_TEMP")) {
 			excelMV = controlStatService.selectYearTemp(paramData);

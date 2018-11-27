@@ -26,6 +26,29 @@
 		 ORDER BY TRN 
 	</select>
 
+	<select id="ControlStatDAO.selectMonCnt" parameterClass="paramMap" resultClass="egovMap">
+		/* ControlStatDAO.selectMonCnt */
+		SELECT TRN,
+		       SUM(DECODE(SMON,'01',ACNT,'')) AS M01, SUM(DECODE(SMON,'02',ACNT,'')) AS M02,
+		       SUM(DECODE(SMON,'03',ACNT,'')) AS M03, SUM(DECODE(SMON,'04',ACNT,'')) AS M04,
+		       SUM(DECODE(SMON,'05',ACNT,'')) AS M05, SUM(DECODE(SMON,'06',ACNT,'')) AS M06,
+		       SUM(DECODE(SMON,'07',ACNT,'')) AS M07, SUM(DECODE(SMON,'08',ACNT,'')) AS M08,
+		       SUM(DECODE(SMON,'09',ACNT,'')) AS M09, SUM(DECODE(SMON,'10',ACNT,'')) AS M10,
+		       SUM(DECODE(SMON,'11',ACNT,'')) AS M11, SUM(DECODE(SMON,'12',ACNT,'')) AS M12,
+		       ROUND(AVG(ACNT),2) AS TOT
+		  FROM (
+		        SELECT TMP_RACE_NUMBER AS TRN, SUBSTR(STND_MON,1,4) AS SYEAR, SUBSTR(STND_MON,5,2) AS SMON, KM_CHANGE_CNT AS ACNT
+		          FROM TB_ST_HT_TEMP_AUTO_MON
+		         WHERE 1=1
+		<isNotEmpty property="sKeyword">
+				   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
+		</isNotEmpty>
+				   AND STND_MON LIKE #sDate#||'%'		           
+		       ) X
+		 GROUP BY TRN
+		 ORDER BY TRN 
+	</select>
+
 	<select id="ControlStatDAO.selectMonTemp" parameterClass="paramMap" resultClass="egovMap">
 		/* ControlStatDAO.selectMonTemp */
 		SELECT TRN,
@@ -82,6 +105,18 @@
 		 ORDER BY STERM
 	</select>
 
+	<select id="ControlStatDAO.selectMonCntChart" parameterClass="paramMap" resultClass="egovMap">
+		/* ControlStatDAO.selectMonCntChart */
+        SELECT TMP_RACE_NUMBER AS TRN, TO_CHAR(TO_DATE(STND_MON,'YYYYMM'),'MM')||'월' AS STERM, KM_CHANGE_CNT AS ACNT
+          FROM TB_ST_HT_TEMP_AUTO_MON
+         WHERE 1=1
+		<isNotEmpty property="sKeyword">
+		   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
+		</isNotEmpty>
+		   AND STND_MON LIKE #sDate#||'%' 
+		 ORDER BY STERM, TRN
+	</select>
+
 	<select id="ControlStatDAO.selectMonTempChart" parameterClass="paramMap" resultClass="egovMap">
 		/* ControlStatDAO.selectMonTempChart */
         SELECT TMP_RACE_NUMBER AS TRN, TO_CHAR(TO_DATE(STND_MON,'YYYYMM'),'MM')||'월' AS STERM, CTR_CHANGE_DIST AS ACNT
@@ -114,6 +149,25 @@
 		 WHERE 1=1	
 		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
 		 GROUP BY CUBE(STND_YEAR)	        
+		)
+		SELECT *
+		  FROM PV
+		 PIVOT (AVG(ACNT) FOR SYEAR IN ($yearArr$, -1 AS TOT))
+		 WHERE TRN IS NOT NULL
+		 ORDER BY TRN		 
+	</select>	
+	
+	<select id="ControlStatDAO.selectYearCnt" parameterClass="paramMap" resultClass="egovMap" remapResults="true">
+		/* ControlStatDAO.selectYearCnt */
+		WITH PV AS (
+		SELECT TMP_RACE_NUMBER AS TRN, NVL(STND_YEAR,-1) AS SYEAR, AVG(KM_CHANGE_CNT) AS ACNT
+		  FROM TB_ST_HT_TEMP_AUTO_YEAR
+		 WHERE 1=1
+		<isNotEmpty property="sKeyword">
+		   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
+		</isNotEmpty>		
+		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
+		 GROUP BY CUBE(TMP_RACE_NUMBER, STND_YEAR)	        
 		)
 		SELECT *
 		  FROM PV
@@ -168,6 +222,18 @@
 		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
 		 GROUP BY STND_YEAR
 		 ORDER BY STERM
+	</select>
+	
+	<select id="ControlStatDAO.selectYearCntChart" parameterClass="paramMap" resultClass="egovMap">
+		/* ControlStatDAO.selectYearCntChart */
+		SELECT TMP_RACE_NUMBER AS TRN, STND_YEAR||'년' AS STERM, KM_CHANGE_CNT AS ACNT
+		  FROM TB_ST_HT_TEMP_AUTO_YEAR
+		 WHERE 1=1
+		<isNotEmpty property="sKeyword">
+		   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
+		</isNotEmpty>		
+		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
+		 ORDER BY STERM, TRN
 	</select>
 	
 	<select id="ControlStatDAO.selectYearTempChart" parameterClass="paramMap" resultClass="egovMap">

@@ -13,9 +13,9 @@
 // global 변수 선언
 var colNames, colModel, sPKColumn, searchData;
 // grid column 구조
-var colNm_mon_All = ['구분','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
-var colNm_mon_Temp = ['임시운행번호','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
-var colNm_mon_User = ['기관ID','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km/h)'];
+var colNm_mon_All = ['구분','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km)'];
+var colNm_mon_Temp = ['임시운행번호','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km)'];
+var colNm_mon_User = ['기관ID','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','총 누적 (km)'];
 var colModel_mon = [
 	{ name: 'trn', width: 120, align: 'center' },
 	{ name: 'm01', align: 'center'},{ name: 'm02', align: 'center'},{ name: 'm03', align: 'center'},{ name: 'm04', align: 'center'},
@@ -29,6 +29,7 @@ var colModel_year = [];
 $(window).resize(function(event) {
 	if (this == event.target) {
 		fn_init();
+		fn_searchChart();
 	}
 });
 
@@ -76,7 +77,7 @@ function getColNames() {
 				break;
 		}
 		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) colNm_year.push(String(i));
-		colNm_year.push('총 누적 (km/h)');
+		colNm_year.push('총 누적 (km)');
 		colNames = colNm_year;
 	}
 	return colNames;
@@ -175,14 +176,14 @@ function fn_makeGrid() {
 	var selTerm = $('#sTerm').val();
 	if(selTerm == 'MON'){
 		cs_cnt = 12;
-		cs_text = '월별 주행거리(km/h)';
+		cs_text = '월별 주행거리(km)';
 	}
 	else {
 		cs_cnt = 0;
 		for(var i=$('#sDate').val(); i<=$('#eDate').val(); i++) {
 			cs_cnt++;
 		}
-		cs_text = '년도별 주행거리(km/h)';
+		cs_text = '년도별 주행거리(km)';
 	}
 	$("#gridList").jqGrid('setGroupHeaders', {
 		useColSpanStyle: true,
@@ -194,7 +195,7 @@ function fn_makeGrid() {
 }
 
 function fn_init() {
-	$('#grid').css('height', 'calc(100% - '+($('#form').height()+119)+'px)');
+	$('#grid').css('height', 'calc(60% - 119px)');
 	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
 	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-57);
 }
@@ -204,6 +205,11 @@ function fn_search() {
 	$('#gridList').jqGrid('clearGridData');
 	$('#gridList').jqGrid('setGridParam', {datatype: 'json', postData : getSearchData()}).trigger('reloadGrid');
 	fn_init();
+	// grid 생성 후 그래프 그리기
+	fn_searchChart();
+}
+
+function fn_searchChart() {
 	// grid 생성 후 그래프 그리기
 	commonAjax(getSearchData(), getSevletUrlChart(), function(returnData, textStatus, jqXHR) {
 		var records = returnData.rows;
@@ -256,11 +262,21 @@ function drawChart(inputData) {
 	if(arr == null) {
 		return;
 	} else {
+		var options = {
+			legend: 'top',
+			legendTextStyle: {color:'#000',fontName: 'NanumGothic',fontSize: '12'},
+			lineWidth: 5,
+			chartArea: {left:100, width:'90%'}
+		}
 		// 그래프용 배열데이터 생성
 		var yearWiseData = google.visualization.arrayToDataTable(getPivotArray(arr));
 		var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
-		chart.draw(yearWiseData, {});
+		chart.draw(yearWiseData, options);
+		yearWiseData = null;
+		options = null;
+		chart = null;
 	}
+	arr = null;
 }
 
 function fn_excel() {
@@ -311,9 +327,9 @@ function fn_excel() {
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
 			<input type="hidden" id="yearArr" name="yearArr" value="">
 
-			<fieldset style="width: 420px;">
+			<fieldset style="width: 450px;">
 				<span class="tit" style="float: left;">구분</span>
-				<select style="float: left; margin-left: 2px; width: 170px; height: 25px;" id="sType" name="sType" >
+				<select style="float: left; margin-left: 2px; width: 200px; height: 25px;" id="sType" name="sType" >
 					<option value="SEL_ALL">전체 자율모드 주행거리</option>
 					<option value="SEL_TEMP">차량별 자율모드 주행거리</option>
 					<option value="SEL_USER">기관별 자율모드 주행거리</option>
@@ -337,11 +353,11 @@ function fn_excel() {
 		<table id="gridList"></table>
 	</div>
 
-	<div id="form" class="form_box" style="height: 124px;">
-		<div id="chart_area" style="width:100%; height:100%;">
-			<table style="width:100%; height:100%;">
+	<div id="form" class="form_box" style="height: calc(40%);">
+		<div id="chart_area" style="width:calc(100%);; height:calc(100%);;">
+			<table style="width:calc(100%);; height:calc(100%);;">
 				<tr>
-					<td style="width:100%; height:100%; text-align:center;">데이터가 없습니다.</td>
+					<td style="width:calc(100%);; height:calc(100%);; text-align:center;">데이터가 없습니다.</td>
 				</tr>
 			</table>
 		</div>
@@ -351,6 +367,9 @@ function fn_excel() {
 </html>
 <script type="text/javascript">
 
+$("#sKeyword").keypress(function(e) {
+    if(e.keyCode == 13) fn_search();
+});
 $("#sType").change(function () {
 	if($(this).val() == 'SEL_ALL') $('#sKeyword').prop('disabled', true);
 	else $('#sKeyword').prop('disabled', false);

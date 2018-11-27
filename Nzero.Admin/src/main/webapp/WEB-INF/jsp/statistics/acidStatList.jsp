@@ -30,6 +30,7 @@ var colModel_year = [];
 $(window).resize(function(event) {
 	if (this == event.target) {
 		fn_init();
+		fn_searchChart();
 	}
 });
 
@@ -212,7 +213,7 @@ function fn_makeGrid() {
 }
 
 function fn_init() {
-	$('#grid').css('height', 'calc(100% - '+($('#form').height()+119)+'px)');
+	$('#grid').css('height', 'calc(60% - 119px)');
 	$('#gridList').jqGrid('setGridWidth', $('#grid').width()-2);
 	$('#gridList').jqGrid('setGridHeight', $('#grid').height()-57);
 }
@@ -222,6 +223,11 @@ function fn_search() {
 	$('#gridList').jqGrid('clearGridData');
 	$('#gridList').jqGrid('setGridParam', {datatype: 'json', postData : getSearchData()}).trigger('reloadGrid');
 	fn_init();
+	// grid 생성 후 그래프 그리기
+	fn_searchChart();
+}
+
+function fn_searchChart() {
 	// grid 생성 후 그래프 그리기
 	commonAjax(getSearchData(), getSevletUrlChart(), function(returnData, textStatus, jqXHR) {
 		var records = returnData.rows;
@@ -274,11 +280,21 @@ function drawChart(inputData) {
 	if(arr == null) {
 		return;
 	} else {
+		var options = {
+			legend: 'top',
+			legendTextStyle: {color:'#000',fontName: 'NanumGothic',fontSize: '12'},
+			lineWidth: 5,
+			chartArea: {left:100, width:'90%'}
+		}
 		// 그래프용 배열데이터 생성
 		var yearWiseData = google.visualization.arrayToDataTable(getPivotArray(arr));
 		var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));
-		chart.draw(yearWiseData, {});
+		chart.draw(yearWiseData, options);
+		yearWiseData = null;
+		options = null;
+		chart = null;
 	}
+	arr = null;
 }
 
 function fn_excel() {
@@ -329,9 +345,9 @@ function fn_excel() {
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
 			<input type="hidden" id="yearArr" name="yearArr" value="">
 
-			<fieldset style="width: 400px;">
+			<fieldset style="width: 450px;">
 				<span class="tit" style="float: left;">구분</span>
-				<select style="float: left; margin-left: 2px; width: 150px; height: 25px;" id="sType" name="sType" >
+				<select style="float: left; margin-left: 2px; width: 200px; height: 25px;" id="sType" name="sType" >
 					<option value="SEL_TEMP">차량별 사고건수</option>
 					<option value="SEL_USER">기관별 사고건수</option>
 					<option value="SEL_ROAD">도로별 사고건수</option>
@@ -339,7 +355,7 @@ function fn_excel() {
 					<option value="SEL_TEMP_DIST">차량별 사고당 주행거리</option>
 					<option value="SEL_USER_DIST">기관별 사고당 주행거리</option>
 				</select>
-				<input type="text" style="float:left; margin-left: 2px; width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value=""/>
+				<input type="text" style="float:left; margin-left: 2px; width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value="" />
 			</fieldset>
 			<fieldset style="width: 400px;">
 				<span class="tit" style="float: left;">기간</span>
@@ -358,11 +374,11 @@ function fn_excel() {
 		<table id="gridList"></table>
 	</div>
 
-	<div id="form" class="form_box" style="height: 124px;">
-		<div id="chart_area" style="width:100%; height:100%;">
-			<table style="width:100%; height:100%;">
+	<div id="form" class="form_box" style="height: calc(40%);">
+		<div id="chart_area" style="width:calc(100%);; height:calc(100%);;">
+			<table style="width:calc(100%);; height:calc(100%);;">
 				<tr>
-					<td style="width:100%; height:100%; text-align:center;">데이터가 없습니다.</td>
+					<td style="width:calc(100%);; height:calc(100%);; text-align:center;">데이터가 없습니다.</td>
 				</tr>
 			</table>
 		</div>
@@ -372,6 +388,9 @@ function fn_excel() {
 </html>
 <script type="text/javascript">
 
+$("#sKeyword").keypress(function(e) {
+    if(e.keyCode == 13) fn_search();
+});
 $("#sType").change(function () {
 	fn_makeGrid();
 });
