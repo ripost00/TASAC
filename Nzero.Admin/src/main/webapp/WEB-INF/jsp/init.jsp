@@ -175,7 +175,7 @@ $(document).ready(function() {
 
 function timer_manager() {
 
-	if(sec === 30) {
+	if(sec === 300) {
 		sec = 0;
 		fn_operCnt();
 		fn_drivingInfo();
@@ -345,21 +345,18 @@ function drawChart(inputData) {
 		var options = {
 			legend: 'top',
 			legendTextStyle: {color:'#000',fontName: 'NanumGothic',fontSize: '12'},
-
 			lineWidth: 5,
 			colors: ['#009933', '#e7711b', '#6633ff'],
 			// backgroundColor: '#334',
-			chartArea: {eft:100, width:'90%'}
+			chartArea: {left:50, width:'90%'}
 		}
+		var chart = new google.visualization.LineChart(document.getElementById('chart_area'));
+		chart.draw(chartData, options);
+		chartData = null;
+		options = null;
+		chart = null;
 	};
-
-	var chart = new google.visualization.LineChart(document.getElementById('chart_area'));
-	chart.draw(chartData, options);
-
 	arr = null;
-	chartData = null;
-	options = null;
-	chart = null;
 }
 
 function fn_mkeDBChart() {
@@ -410,17 +407,15 @@ function drawDBChart(inputData) {
 			 ticks: [0, .3, .6, .9, 1],
 		 	},
 			colors: ['#990000', '#1b4ee7'],
-		 	chartArea: {left:160, width:'85%'}
+		 	chartArea: {left:160, width:'80%'}
 		};
+		var chartDb = new google.visualization.BarChart(document.getElementById('chart_db'));
+		chartDb.draw(chartData, options_fullStacked);
+		chartData = null;
+		options_fullStacked = null;
+		chartDb = null;
 	};
-
-	var chartDb = new google.visualization.BarChart(document.getElementById('chart_db'));
-	chartDb.draw(chartData, options_fullStacked);
-
 	arr = null;
-	chartData = null;
-	options_fullStacked = null;
-	chartDb = null;
 }
 
 </script>

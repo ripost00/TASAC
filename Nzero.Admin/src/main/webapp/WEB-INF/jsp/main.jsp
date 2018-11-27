@@ -139,8 +139,8 @@ function fn_absolutXY() {
 	var tabs_w = body_w;
 
 	if ($("#leftMenu").css("display") != "none") {	//왼쪽 사이드 메뉴 Size 추가 (152px)
-		cont_area_w = body_w - 152 - 17;
-		tabs_w = body_w - 152;
+		cont_area_w = body_w - 192 - 17;
+		tabs_w = body_w - 192;
 	}
 	$("#cont_area").css("width", cont_area_w);
 	$("#tabs").css("width", tabs_w);
@@ -353,7 +353,7 @@ function fn_hideMenu(bOpen) {
 	var obj = $("#leftMenu");
 	var body_w = document.body.clientWidth;
 	var cont_area_w = 0;
-	var tabs_w = body_w - 152;
+	var tabs_w = body_w - 192;
 
 	if (bOpen == undefined) {
 		if (obj.css("display") != "none") { //메뉴숨김
@@ -370,9 +370,9 @@ function fn_hideMenu(bOpen) {
 	if (bOpen) { //메뉴펼침
 		obj.show();
 
-		cont_area_w = body_w - 152 - 17;
+		cont_area_w = body_w - 192 - 17;
 		$("#cont_area").css("width", cont_area_w);
-		tabs_w = body_w - 152;
+		tabs_w = body_w - 192;
 		$("#tabs").css("width", tabs_w);
 		$("#leftMenuImg").attr("src", "/images/left/ico_mhide.png");
 	} else { //메뉴숨김

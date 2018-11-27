@@ -11,7 +11,8 @@ body{width:100%; min-width:1000px; background-color:#fcfcfc;}
 /* 탑영역 */
 #header{clear:both; position:relative; width:100%; min-width:1000px;  height:40px; line-height:40px; vertical-align:middle;z-index:11; background:#434550;}
 
-#header .user{position:absolute; top:0; left:0; width:150px; height:40px; border-right:1px solid #5f616a; }
+/* #header .user{position:absolute; top:0; left:0; width:150px; height:40px; border-right:1px solid #5f616a; } */
+#header .user{position:absolute; top:0; left:0; width:190px; height:40px; border-right:1px solid #5f616a; }
 #header .user p{display:inline-block; color:#ccc; font-size:11px; font-weight:bold; font-family:"dotum", "돋움"; margin-left:12px;}
 #header .user p a{text-decoration:underline; color:#ccc; margin-left:3px;}
 #header .user strong{position:absolute; right:10px; top:0px; vertical-align:middle; margin-left:5px;}
@@ -26,7 +27,8 @@ border-radius:2px; /* W3C */
 
 
 /*top메뉴*/
-.tmenu{ position:absolute; left:151px; top:0;  width:990px; min-width:700px; height:40px;}
+/* .tmenu{ position:absolute; left:151px; top:0;  width:990px; min-width:700px; height:40px;} */
+.tmenu{ position:absolute; left:191px; top:0;  width:990px; min-width:700px; height:40px;}
 
 /* .tmenu a{float:left; width:14.15%; text-align:center; border-left:1px solid #3c3e48; border-right:1px solid #5f616a; border-bottom:5px solid #2d2e33; height:40px; line-height:40px; color:#fff; font-size:15px; font-family:"nanumbarunttf","nanumbarun","dotum", "돋움"; box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box; } */
 .tmenu a{float:left; width:10.5%; text-align:center; border-left:1px solid #3c3e48; border-right:1px solid #5f616a; border-bottom:5px solid #2d2e33; height:40px; line-height:40px; color:#fff; font-size:15px; font-family:"nanumbarunttf","nanumbarun","dotum", "돋움"; box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box; }
@@ -72,15 +74,18 @@ box-sizing: border-box; /* W3C */
 #wrap:after{content:""; display:block; clear:both;}
 
 /*left메뉴*/
-.lmenu_area{float:left; width:150px; height:100%; background:#626576;  z-index:11; box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box; }
-.lmenu_area .logo{position:absolute; bottom:10px; width:150px; height:40px; padding-bottom:30px; background:#626576 url(/images/left/logo.png) 50% 50% no-repeat; }
+/* .lmenu_area{float:left; width:190px; height:100%; background:#626576;  z-index:11; box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box; } */
+/* .lmenu_area .logo{position:absolute; bottom:10px; width:190px; height:40px; padding-bottom:30px; background:#626576 url(/images/left/logo.png) 50% 50% no-repeat; } */
+.lmenu_area{float:left; width:190px; height:100%; background:#626576;  z-index:11; box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box; }
+.lmenu_area .logo{position:absolute; bottom:10px; width:190px; height:40px; padding-bottom:30px; background:#626576 url(/images/left/logo.png) 50% 50% no-repeat; }
 .lmenu{margin:0 px; border-bottom:1px solid #797c8a; background:#626576;}
 .lmenu1{height:37px; line-height:37px; padding-left:8px; vertical-align:middle;}
 .lmenu2{padding:12px; background:#4a4d5a;}
 .lmenu1 > a.on{ background:url(/images/left/ico_leftmu.png) 126px 50% no-repeat; }
 .lmenu1 a, .lmenu2 li a{display:inline-block; width:100%; font-family:"nanumbarunttf","nanumbarun","dotum", "돋움";}
 .lmenu1 a{color:#feffff; font-size:15px;}
-.lmenu2 li a{color:#bfd6f4; font-size:11px; height:24px; line-height:24px; vertical-align:middle; padding-left:8px;}
+/* .lmenu2 li a{color:#bfd6f4; font-size:14px; height:24px; line-height:24px; vertical-align:middle; padding-left:8px;} */
+.lmenu2 li a{color:#bfd6f4; font-size:14px; height:24px; line-height:24px; vertical-align:middle; padding-left:8px;}
 .lmenu2 .on a{color:#fff; background:url(/images/left/bl_1.png) 0 50% no-repeat;}
 
 
