@@ -110,7 +110,7 @@ function fn_excel() {
 
 			<fieldset>
 				<span class="tit">서버명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 			</fieldset>
 			<fieldset style="width: 400px;">
 				<span class="tit">등록일시</span>

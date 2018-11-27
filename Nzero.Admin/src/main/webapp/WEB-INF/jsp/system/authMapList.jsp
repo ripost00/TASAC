@@ -176,7 +176,7 @@ function fn_save() {
 		<form id="searchForm" name="searchForm" method="post">
 			<fieldset>
 				<span class="tit">권한명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sAuthNm" name="sAuthNm" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sAuthNm" name="sAuthNm" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">사용여부</span>

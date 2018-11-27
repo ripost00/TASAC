@@ -37,11 +37,11 @@ $(document).ready(function() {
 			fn_searchForm(rowid);
 		}
 	);
-	
+
 	commonMakeCodeComboBox("sUseYn", "YN_CODE2", true);
-	
+
 	commonMakeCodeComboBox("useYn", "YN_CODE2");
-	
+
 	fn_init();
 
 	fn_search();
@@ -59,14 +59,14 @@ function fn_initClear() {
 	document.searchForm.reset();
 	$("#gridList").jqGrid("clearGridData");
 	document.detailForm.reset();
-	
+
 	$("#sAuthNm").focus();
 }
 
 function fn_search() {
 	$("#gridList").jqGrid("clearGridData");
 	document.detailForm.reset();
-	
+
 	var searchData = {
 		sAuthNm: $("#sAuthNm").val(),
 		sUseYn: $("#sUseYn").val()
@@ -76,16 +76,16 @@ function fn_search() {
 
 function fn_searchForm(rowId) {
 	var rowData = $("#gridList").jqGrid("getRowData", rowId);
-	
+
 	commonAjax({ "sAuthId": rowData.authId }, "/system/auth/selectAuthList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
-		
+
 		var formData = returnData.rows[0];
 		$("#saveMode").val("U");
-		
+
 		$("#authId").val(formData.authId);
 		$("#authNm").val(formData.authNm);
-		$("#authorDc").val(formData.authorDc);      
+		$("#authorDc").val(formData.authorDc);
 		$("#dispOrdr").val(formData.dispOrdr);
 		$("#useYn").val(formData.useYn);
 	});
@@ -94,19 +94,19 @@ function fn_searchForm(rowId) {
 function fn_new() {
 	$("#gridList").jqGrid("resetSelection");
 	document.detailForm.reset();
-	
+
 	$("#saveMode").val("I");
 	$("#authId").val("신규");
-	
+
 	$("#authNm").focus();
 }
 
 function fn_save() {
 	if (!$("#detailForm").valid()) return;
-	
+
 	var data = $("#detailForm").serializeArray();
-	
-	commonAjax(data ,"/system/auth/transactionAuth.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/auth/transactionAuth.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
@@ -114,28 +114,28 @@ function fn_save() {
 
 function fn_delete() {
 	if (!confirm("<spring:message code='common.delete.msg'/>")) return;
-	
+
 	$("#saveMode").val("D");
-	
+
 	var data = $("#detailForm").serializeArray();
-	
-	commonAjax(data ,"/system/auth/transactionAuth.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/auth/transactionAuth.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
 }
 
 function fn_excel() {
-	var columnsNm = [], datafield = [];	
+	var columnsNm = [], datafield = [];
 	for (var i=0; i<colModel.length-1; i++) {
 		columnsNm[i] = colModel[i].label;
 		datafield[i] = colModel[i].name;
 	}
-	
+
 	$("#columnsNm").val(columnsNm);
 	$("#datafield").val(datafield);
 	$("#excelFileNm").val("<%=menuNm%>.xls");
-	
+
 	var url = "/system/auth/selectAuthExcelList.do";
 	$("#searchForm").attr("action", url);
 	$("#searchForm").submit();
@@ -146,7 +146,7 @@ function fn_excel() {
 <div class="wrap">
 	<div class="float_left w100p">
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
-		
+
 		<div class="contBtn1">
 			<a href="javascript:fn_initClear()"  class="btn_refresh" title="초기화"></a>
 			<i></i>
@@ -161,16 +161,16 @@ function fn_excel() {
 			<a href="javascript:fn_excel()" class="btn_excel" title="엑셀"></a>
 		</div>
 	</div>
-	
+
 	<div class="box_search">
 		<form id="searchForm" name="searchForm" method="post">
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
-			
+
 			<fieldset>
 				<span class="tit">권한명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sAuthNm" name="sAuthNm" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sAuthNm" name="sAuthNm" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">사용여부</span>
@@ -178,16 +178,16 @@ function fn_excel() {
 	    	</fieldset>
 	    </form>
 	</div>
-	
+
 	<div id="grid" class="float_left w100p">
 		<table id="gridList"></table>
 	</div>
-	
+
 	<div id="form" class="form_box" style="height: 124px;">
 		<form id="detailForm" name="detailForm" method="post">
 			<input type="text" style="display: none;" id="saveMode" name="saveMode" value="I"/>
 			<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
-			
+
 			<table summary="테이블" class="table1">
 				<caption></caption>
 				<colgroup>

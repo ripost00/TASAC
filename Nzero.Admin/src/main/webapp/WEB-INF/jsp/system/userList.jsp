@@ -36,18 +36,22 @@ $(document).ready(function() {
 			fn_searchForm(rowid);
 		}
 	);
-	
+
 	commonMakeAuthComboBox("sAuthId", true);
 	commonMakeCodeComboBox("sUseYn", "YN_CODE2", true);
-	
+
 	commonMakeAuthComboBox("authId");
 	commonMakeCodeComboBox("useYn", "YN_CODE2");
-	
+
 	fn_init();
 
 	fn_search();
 
 	$("#sUserNm").focus();
+
+	// $("#sUserNm").keypress(function(e) {
+	//     if(e.keyCode == 13) fn_search();
+	// });
 });
 
 function fn_init() {
@@ -63,7 +67,7 @@ function fn_initClear() {
 	$("#userId").attr("readonly", false);
 	$("#userId").css("background-color", "white");
 	$("#btnDupChk").show();
-	
+
 	$("#sUserNm").focus();
 }
 
@@ -73,7 +77,7 @@ function fn_search() {
 	$("#userId").attr("readonly", false);
 	$("#userId").css("background-color", "white");
 	$("#btnDupChk").show();
-	
+
 	var searchData = {
 		sUserNm: $("#sUserNm").val(),
 		sAuthId: $("#sAuthId").val(),
@@ -84,21 +88,21 @@ function fn_search() {
 
 function fn_searchForm(rowId) {
 	var rowData = $("#gridList").jqGrid("getRowData", rowId);
-	
+
 	commonAjax({ "sUserId": rowData.userId }, "/system/user/selectUserList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
-		
+
 		var formData = returnData.rows[0];
 		$("#saveMode").val("U");
 		$("#userIdDupChk").val("Y");
-		
+
 		$("#userId").val(formData.userId);
 		$("#userNm").val(formData.userNm);
-		$("#userPwd").val(formData.userPwd);      
+		$("#userPwd").val(formData.userPwd);
 		$("#userPwdChk").val(formData.userPwd);
 		$("#authId").val(formData.authId);
 		$("#useYn").val(formData.useYn);
-		
+
 		$("#userId").attr("readonly", true);
 		$("#userId").css("background-color", "rgb(235, 235, 228)");
 		$("#btnDupChk").hide();
@@ -111,16 +115,16 @@ function fn_new() {
 	$("#userId").attr("readonly", false);
 	$("#userId").css("background-color", "white");
 	$("#btnDupChk").show();
-	
+
 	$("#saveMode").val("I");
 	$("#userIdDupChk").val("N");
-	
+
 	$("#userId").focus();
 }
 
 function fn_save() {
 	if (!$("#detailForm").valid()) return;
-	
+
 	if ($("#userPwd").val() != $("#userPwdChk").val()) {
 		alert("비밀번호를 확인해 주십시오");
 		$('#userPwdChk').focus();
@@ -130,10 +134,10 @@ function fn_save() {
 		alert("ID중복체크를 해주십시오");
 		return;
 	}
-	
+
 	var data = $("#detailForm").serializeArray();
-	
-	commonAjax(data ,"/system/user/transactionUser.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/user/transactionUser.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
@@ -141,28 +145,28 @@ function fn_save() {
 
 function fn_delete() {
 	if (!confirm("<spring:message code='common.delete.msg'/>")) return;
-	
+
 	$("#saveMode").val("D");
-	
+
 	var data = $("#detailForm").serializeArray();
-	
-	commonAjax(data ,"/system/user/transactionUser.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/user/transactionUser.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
 }
 
 function fn_excel() {
-	var columnsNm = [], datafield = [];	
+	var columnsNm = [], datafield = [];
 	for (var i=0; i<colModel.length-1; i++) {
 		columnsNm[i] = colModel[i].label;
 		datafield[i] = colModel[i].name;
 	}
-	
+
 	$("#columnsNm").val(columnsNm);
 	$("#datafield").val(datafield);
 	$("#excelFileNm").val("<%=menuNm%>.xls");
-	
+
 	var url = "/system/user/selectUserExcelList.do";
 	$("#searchForm").attr("action", url);
 	$("#searchForm").submit();
@@ -170,7 +174,7 @@ function fn_excel() {
 
 function fn_dupCheck() {
 	if ($("#userId").val() == "") return;
-	
+
 	commonAjax({ "sUserId": $("#userId").val() }, "/system/user/selectUserList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) {
 			$("#userIdDupChk").val("Y");
@@ -188,7 +192,7 @@ function fn_dupCheck() {
 <div class="wrap">
 	<div class="float_left w100p">
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
-		
+
 		<div class="contBtn1">
 			<a href="javascript:fn_initClear()"  class="btn_refresh" title="초기화"></a>
 			<i></i>
@@ -203,16 +207,16 @@ function fn_dupCheck() {
 			<a href="javascript:fn_excel()" class="btn_excel" title="엑셀"></a>
 		</div>
 	</div>
-	
+
 	<div class="box_search">
 		<form id="searchForm" name="searchForm" method="post">
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
-			
+
 			<fieldset>
 				<span class="tit">사용자명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sUserNm" name="sUserNm" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sUserNm" name="sUserNm" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}" />
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">권한</span>
@@ -224,17 +228,17 @@ function fn_dupCheck() {
 	    	</fieldset>
 	    </form>
 	</div>
-	
+
 	<div id="grid" class="float_left w100p">
 		<table id="gridList"></table>
 	</div>
-	
+
 	<div id="form" class="form_box" style="height: 124px;">
-		<form id="detailForm" name="detailForm" method="post">				
+		<form id="detailForm" name="detailForm" method="post">
 			<input type="text" style="display: none;" id="saveMode" name="saveMode" value="I"/>
 			<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
 			<input type="text" style="display:none;" id="userIdDupChk" name="userIdDupChk" value="N"/>
-			
+
 			<table summary="테이블" class="table1">
 				<caption></caption>
 				<colgroup>
@@ -249,8 +253,8 @@ function fn_dupCheck() {
 					<tr>
 						<th>사용자ID</th>
 						<td>
-							<input type="text" style="width: 150px; height: 19px;" id="userId" name="userId" value="" caption="사용자ID" required="required"/>&nbsp;											
-							<input type="button" style="width: 80px; height: 25px;" id="btnDupChk" name="btnDupChk" onclick="javascript:fn_dupCheck();" value="중복확인"/>									
+							<input type="text" style="width: 150px; height: 19px;" id="userId" name="userId" value="" caption="사용자ID" required="required"/>&nbsp;
+							<input type="button" style="width: 80px; height: 25px;" id="btnDupChk" name="btnDupChk" onclick="javascript:fn_dupCheck();" value="중복확인"/>
 						</td>
 						<th>사용자명</th>
 						<td><input type="text" style="width: 150px; height: 19px;" id="userNm" name="userNm" value="" caption="사용자명" required="required"/></td>

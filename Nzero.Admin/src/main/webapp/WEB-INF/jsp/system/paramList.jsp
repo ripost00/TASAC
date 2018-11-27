@@ -211,7 +211,7 @@ function fn_dupCheck() {
 
 			<fieldset>
 				<span class="tit">파라미터명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sParamNm" name="sParamNm" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sParamNm" name="sParamNm" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">사용여부</span>

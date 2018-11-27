@@ -56,7 +56,7 @@ $(document).ready(function() {
 			fn_searchFormMast(rowid);
 		}
 	);
-	
+
 	commonMakeGrid("gridList2", "/system/code/selectCodeDetlList.do", colModelDetl, false
 		, function(data) {
 			$("#gridList2").jqGrid("setSelection", "1");
@@ -65,12 +65,12 @@ $(document).ready(function() {
 			fn_searchFormDetl(rowid);
 		}
 	);
-	
+
 	commonMakeCodeComboBox("sUseYn", "YN_CODE2", true);
-	
+
 	commonMakeCodeComboBox("useYn", "YN_CODE2");
 	commonMakeCodeComboBox("useYnDetl", "YN_CODE2");
-	
+
 	fn_init();
 
 	fn_search();
@@ -81,7 +81,7 @@ $(document).ready(function() {
 function fn_init() {
 	$("#gridList1").jqGrid("setGridWidth", $("#grid1").width()-2);
 	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-30);
-	
+
 	$("#gridList2").jqGrid("setGridWidth", $("#grid2").width()-2);
 	$("#gridList2").jqGrid("setGridHeight", $("#grid2").height()-30);
 }
@@ -92,7 +92,7 @@ function fn_initClear() {
 	document.detailForm1.reset();
 	$("#gridList2").jqGrid("clearGridData");
 	document.detailForm2.reset();
-	
+
 	$("#sCodeCd").focus();
 }
 
@@ -101,7 +101,7 @@ function fn_search() {
 	document.detailForm1.reset();
 	$("#gridList2").jqGrid("clearGridData");
 	document.detailForm2.reset();
-	
+
 	var searchData = {
 		sCodeCd: $("#sCodeCd").val(),
 		sCodeNm: $("#sCodeNm").val(),
@@ -112,13 +112,13 @@ function fn_search() {
 
 function fn_searchFormMast(rowId) {
 	var rowData = $("#gridList1").jqGrid("getRowData", rowId);
-	
+
 	commonAjax({ "sCodeCd": rowData.codeCd }, "/system/code/selectCodeMastList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
-		
+
 		var formData = returnData.rows[0];
 		$("#saveMode1").val("U");
-		
+
 		$("#codeCd").val(formData.codeCd);
 		$("#codeNm").val(formData.codeNm);
 		$("#codeDesc").val(formData.codeDesc);
@@ -128,7 +128,7 @@ function fn_searchFormMast(rowId) {
 		$("#refVal4Desc").val(formData.refVal4Desc);
 		$("#note").val(formData.note);
 		$("#useYn").val(formData.useYn);
-		
+
 		fn_searchDetl(formData.codeCd);
 	});
 }
@@ -136,7 +136,7 @@ function fn_searchFormMast(rowId) {
 function fn_searchDetl(codeCd) {
 	$("#gridList2").jqGrid("clearGridData");
 	document.detailForm2.reset();
-	
+
 	var searchData = {
 		codeCdDetl: codeCd
 	};
@@ -145,13 +145,13 @@ function fn_searchDetl(codeCd) {
 
 function fn_searchFormDetl(rowId) {
 	var rowData = $("#gridList2").jqGrid("getRowData", rowId);
-	
+
 	commonAjax({ "codeCdDetl": rowData.codeCd, "codeDetlCd": rowData.codeDetlCd }, "/system/code/selectCodeDetlList.do", function(returnData, textStatus, jqXHR) {
 		if (returnData.rows.length == 0) return;
-		
+
 		var formData = returnData.rows[0];
 		$("#saveMode2").val("U");
-		
+
 		$("#codeCdDetl").val(formData.codeCd);
 		$("#codeDetlCd").val(formData.codeDetlCd);
 		$("#codeDetlNm").val(formData.codeDetlNm);
@@ -169,18 +169,18 @@ function fn_newMast() {
 	document.detailForm1.reset();
 	$("#gridList2").jqGrid("resetSelection");
 	document.detailForm2.reset();
-	
+
 	$("#saveMode1").val("I");
-	
+
 	$("#codeCd").focus();
 }
 
 function fn_saveMast() {
 	if (!$("#detailForm1").valid()) return;
-	
+
 	var data = $("#detailForm1").serializeArray();
-	
-	commonAjax(data ,"/system/code/transactionCodeMast.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/code/transactionCodeMast.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
@@ -188,12 +188,12 @@ function fn_saveMast() {
 
 function fn_deleteMast() {
 	if (!confirm("<spring:message code='common.delete.msg'/>")) return;
-	
+
 	$("#saveMode1").val("D");
-	
+
 	var data = $("#detailForm1").serializeArray();
-	
-	commonAjax(data ,"/system/code/transactionCodeMast.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/code/transactionCodeMast.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_search();
 	});
@@ -201,24 +201,24 @@ function fn_deleteMast() {
 
 function fn_newDetl() {
 	if ($("#codeCd").val() == "") return;
-	
+
 	$("#gridList2").jqGrid("resetSelection");
 	document.detailForm2.reset();
-	
+
 	$("#saveMode2").val("I");
 	$("#codeCdDetl").val($("#codeCd").val());
-	
+
 	$("#codeDetlCd").focus();
 }
 
 function fn_saveDetl() {
 	if ($("#codeCd").val() == "") return;
-	
+
 	if (!$("#detailForm2").valid()) return;
-	
+
 	var data = $("#detailForm2").serializeArray();
-	
-	commonAjax(data ,"/system/code/transactionCodeDetl.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/code/transactionCodeDetl.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_searchDetl($("#codeCd").val());
 	});
@@ -226,14 +226,14 @@ function fn_saveDetl() {
 
 function fn_deleteDetl() {
 	if ($("#codeCd").val() == "") return;
-	
+
 	if (!confirm("<spring:message code='common.delete.msg'/>")) return;
-	
+
 	$("#saveMode2").val("D");
-	
+
 	var data = $("#detailForm2").serializeArray();
-	
-	commonAjax(data ,"/system/code/transactionCodeDetl.do" , function(returnData, textStatus, jqXHR) {		
+
+	commonAjax(data ,"/system/code/transactionCodeDetl.do" , function(returnData, textStatus, jqXHR) {
 		alert(returnData.message);
 		fn_searchDetl($("#codeCd").val());
 	});
@@ -244,7 +244,7 @@ function fn_deleteDetl() {
 <div class="wrap">
 	<div class="float_left w100p">
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
-		
+
 		<div class="contBtn1">
 			<a href="javascript:fn_initClear()" class="btn_refresh" title="초기화"></a>
 			<i></i>
@@ -253,20 +253,20 @@ function fn_deleteDetl() {
 			<a href="javascript:fn_excel()" class="btn_excel" title="엑셀"></a>
 		</div>
 	</div>
-	
+
 	<div class="box_search">
 		<form id="searchForm" name="searchForm" method="post">
 			<input type="hidden" id="excelFileNm" name="excelFileNm" value="">
 			<input type="hidden" id="columnsNm" name="columnsNm" value="">
 			<input type="hidden" id="datafield" name="datafield" value="">
-			
+
 			<fieldset>
 				<span class="tit">공통코드</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sCodeCd" name="sCodeCd" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sCodeCd" name="sCodeCd" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">공통코드명</span>
-				<input type="text" style="width: 150px; height: 19px;" id="sCodeNm" name="sCodeNm" value=""/>
+				<input type="text" style="width: 150px; height: 19px;" id="sCodeNm" name="sCodeNm" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    	</fieldset>
 	    	<fieldset>
 				<span class="tit">사용여부</span>
@@ -274,19 +274,19 @@ function fn_deleteDetl() {
 	    	</fieldset>
 	    </form>
 	</div>
-	
+
 	<div class="float_left w100p" style="height: calc(50% - 60.5px);">
 		<p class="float_left w100p" style="font-weight: bold;">▶ 공통코드</p>
-		
+
 		<div id="grid1" class="float_left" style="width: calc(100% - 600px); height: 100%;">
 			<table id="gridList1"></table>
 		</div>
-		
+
 		<div id="form1" class="form_box" style="float: right; width: 568px; height: calc(100% - 30px); margin-top: 0px;">
-			<form id="detailForm1" name="detailForm1" method="post">				
+			<form id="detailForm1" name="detailForm1" method="post">
 				<input type="text" style="display: none;" id="saveMode1" name="saveMode1" value="I"/>
 				<input type="text" style="display: none;" id="rowId1" name="rowId1" value=""/>
-				
+
 				<table summary="테이블" class="table1">
 					<caption></caption>
 					<colgroup>
@@ -346,20 +346,20 @@ function fn_deleteDetl() {
 			</form>
 		</div>
 	</div>
-	
+
 	<div class="float_left w100p" style="height: calc(50% - 69px); margin-top: 16px;">
 		<p class="float_left w100p mt10" style="font-weight: bold;">▶ 상세코드</p>
-		
+
 		<div id="grid2" class="float_left" style="width: calc(100% - 600px); height: 100%;">
 			<table id="gridList2"></table>
 		</div>
-		
+
 		<div id="form2" class="form_box" style="float: right; width: 568px; height: calc(100% - 21.5px); margin-top: 0px;">
-			<form id="detailForm2" name="detailForm2" method="post">				
+			<form id="detailForm2" name="detailForm2" method="post">
 				<input type="text" style="display: none;" id="saveMode2" name="saveMode2" value="I"/>
 				<input type="text" style="display: none;" id="rowId2" name="rowId2" value=""/>
 				<input type="text" style="display: none;" id="codeCdDetl" name="codeCdDetl" value=""/>
-				
+
 				<table summary="테이블" class="table1">
 					<caption></caption>
 					<colgroup>
@@ -398,7 +398,7 @@ function fn_deleteDetl() {
 							<th>참조3</th>
 							<td><input type="text" style="width: 300px; height: 19px;" id="refVal3" name="refVal3" value="" caption="참조3"/></td>
 						</tr>
-						<!-- 
+						<!--
 						<tr>
 							<th>참조4</th>
 							<td><input type="text" style="width: 300px; height: 19px;" id="refVal4" name="refVal4" value="" caption="참조4"/></td>

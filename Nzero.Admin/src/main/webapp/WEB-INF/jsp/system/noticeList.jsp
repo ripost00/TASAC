@@ -32,7 +32,7 @@
 		<form id="searchForm" name="searchForm" method="post">
 			<fieldset>
 				<span class="tit">제목검색</span>
-				<input type="text" style="margin-left: 2px; width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value=""/>
+				<input type="text" style="margin-left: 2px; width: 150px; height: 19px;" id="sKeyword" name="sKeyword" value="" onkeypress="if(event.keyCode==13) {fn_search(); return false;}"/>
 	    </fieldset>
 		</form>
 	</div>

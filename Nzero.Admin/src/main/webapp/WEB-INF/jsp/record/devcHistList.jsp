@@ -46,6 +46,12 @@ $(document).ready(function() {
 	$( "#stdate" ).datepicker();
 	$( "#eddate" ).datepicker();
 
+	$("#sTmpNo").keypress(function(e) {
+	    if(e.keyCode == 13) fn_search();
+	});
+	$("#sTmpAg").keypress(function(e) {
+	    if(e.keyCode == 13) fn_search();
+	});
 });
 
 function fn_init() {
