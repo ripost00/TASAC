@@ -25,7 +25,7 @@
 			A.TMP_RACE_AGENCY LIKE '%'||#sTmpAg#||'%'
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="stdate">
-			A.REG_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+			A.STND_DT BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 		</isNotEmpty>
 		 ORDER BY A.REG_DATE DESC
 	</select>
@@ -85,7 +85,7 @@
 			A.TMP_RACE_AGENCY LIKE '%'||#sTmpAg#||'%'
 		</isNotEmpty>
 		<isNotEmpty prepend="AND" property="stdate">
-			A.ACC_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+			A.STND_DT BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 		</isNotEmpty>
 		 ORDER BY A.ACC_DATE DESC
 	</select>

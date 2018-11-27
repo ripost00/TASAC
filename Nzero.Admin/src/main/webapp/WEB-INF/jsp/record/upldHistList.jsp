@@ -11,22 +11,16 @@
 <script src="/js/jquery-ui-1.12.1.custom/datepicker-ko.js"></script> <!-- jQuery 달력 -->
 <script type="text/javascript">
 var colModelMast = [
-	{ label: '게시글일련번호',	name: 'bSeq',				hidden: true },
+	{ label: '업로드ID',		name: 'regId',		width: 120,	align: "center" },
+	{ label: '기관명',		name: 'agencyName',			width: 150,	align: "center" },
 	{ label: '제목',			name: 'bTitle',				width: 300 },
+	{ label: '등록일시',		name: 'regDateView',		width: 100,	align: "center" },
+	{ label: '파일명',			name: 'saveNm',				width: 300 },
+	{ label: '파일사이즈',		name: 'fileSizeView',		width: 100,	align: "center" },
 	{ label: '주행모드',		name: 'drivingModeView',	width: 100,	align: "center" },
 	{ label: '기상상황',		name: 'weatherView',		width: 80,	align: "center" },
 	{ label: '도로유형',		name: 'roadTypeCdView',		width: 100,	align: "center" },
-	{ label: '거동정보유형',	name: 'actInfoTypeView',	width: 80,	align: "center" },
-	{ label: '차량ID',			name: 'vehicleId',			width: 100,	align: "center" },
-	{ label: '차량구분',		name: 'carTypeView',		width: 100,	align: "center" },
-	{ label: '차량모델',		name: 'carModel',			width: 120 },
-//	{ label: '영상센서모델',	name: 'movieSensorModel',	width: 120 },
-//	{ label: '라이다모델',		name: 'lidarModel',			width: 120 },
-//	{ label: '레이다모델',		name: 'radarModel',			width: 120 },
-	{ label: '자율주행레벨',	name: 'autocarLevelView',	width: 100,	align: "center" },
-	{ label: '파일명',			name: 'saveNm',				width: 300 },
-	{ label: '파일사이즈',		name: 'fileSizeView',		width: 150,	align: "center" },
-	{ label: '등록일시',		name: 'regDateView',		width: 100,	align: "center" }
+	{ label: '차량번호',		name: 'vehicleId',		width: 100,	align: "center" }
 ];
 
 $(window).resize(function(event) {
@@ -64,13 +58,6 @@ function fn_init() {
 	$("#gridList1").jqGrid("setGridHeight", $("#grid1").height()-30);
 }
 
-function fn_initClear() {
-	document.searchForm.reset();
-	$("#gridList1").jqGrid("clearGridData");
-
-	$("#sTitle").focus();
-}
-
 function fn_search() {
 	$("#gridList1").jqGrid("clearGridData");
 
@@ -95,7 +82,7 @@ function fn_searchFormMast(rowId) {
 
 function fn_excel() {
 	var columnsNm = [], datafield = [];
-	for (var i=0; i<colModelMast.length-1; i++) {
+	for (var i=0; i<colModelMast.length; i++) {
 		columnsNm[i] = colModelMast[i].label;
 		datafield[i] = colModelMast[i].name;
 	}
@@ -118,8 +105,6 @@ function fn_excel() {
 		<div class="cont_tit2">◎ <%=java.net.URLDecoder.decode(menuNm, "UTF-8")%></div>
 
 		<div class="contBtn1">
-			<a href="javascript:fn_initClear()" class="btn_refresh" title="초기화"></a>
-			<i></i>
 			<a href="javascript:fn_search()" class="btn_search" title="조회"></a>
 			<i></i>
 			<a href="javascript:fn_excel()" class="btn_excel" title="엑셀"></a>
