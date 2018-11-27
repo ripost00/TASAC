@@ -29,6 +29,7 @@
 		<result property="accDetailInfo" column="ACC_DETAIL_INFO"		jdbcType="CLOB"		javaType="java.lang.String"/>
 		<result property="etcFilename" column="ETC_FILENAME" />
 		<result property="accDateView" column="ACC_DATE_VIEW" />
+		<result property="regDateView" column="REG_DATE_VIEW" />
 		<result property="weatherView" column="WEATHER_VIEW" />
 		<result property="roadSituationView" column="ROAD_SITUATION_VIEW" />
 		<result property="roadTypeCdView" column="ROAD_TYPE_CD_VIEW" />

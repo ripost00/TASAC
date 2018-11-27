@@ -29,7 +29,7 @@
 		<isNotEmpty prepend="AND" property="stdate">
 			A.MODIFY_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 		</isNotEmpty>
-		 ORDER BY A.MODIFY_DATE DESC
+		 ORDER BY A.REG_DATE DESC
 	</select>
 
 	<!-- Excel : 장치 및 기능변경 목록 조회 -->
@@ -55,7 +55,7 @@
 		<isNotEmpty prepend="AND" property="stdate">
 			A.MODIFY_DATE BETWEEN TO_DATE( #stdate# || ' 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE( #eddate# || ' 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
 		</isNotEmpty>
-		 ORDER BY A.MODIFY_DATE DESC
+		 ORDER BY A.REG_DATE DESC
 	</select>
 
 </sqlMap>

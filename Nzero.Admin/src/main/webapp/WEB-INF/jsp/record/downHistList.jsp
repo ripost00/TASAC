@@ -14,7 +14,7 @@ var colModelMast = [
 	{ label: '게시글일련번호',	name: 'bSeq',			hidden: true },
 	{ label: '다운로드 사용자',	name: 'evalId',			width: 120,	align: "center" },
 	{ label: '평가점수',		name: 'evalPoint',		width: 60,	align: "center" },
-	{ label: '다운일시',		name: 'evalDateView',	width: 100,	align: "center" },
+	{ label: '다운일시',		name: 'dregDateView',	width: 100,	align: "center" },
 	{ label: '파일명',			name: 'saveNm',			width: 300 },
 	{ label: '파일사이즈',		name: 'fileSizeView',	width: 150,	align: "center" },
 	{ label: '제목',			name: 'bTitle',			width: 300 },
