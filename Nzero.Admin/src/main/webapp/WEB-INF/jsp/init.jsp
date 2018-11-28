@@ -8,7 +8,7 @@
 
 <%@ include file="/include/header.jsp" %>
 <link rel="stylesheet" href="<c:url value='/css/sub.css' />" type="text/css"/>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="/js/gstatic/loader.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 

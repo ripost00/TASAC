@@ -8,7 +8,7 @@
 
 <%@ include file="/include/header.jsp" %>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="/js/gstatic/loader.js"></script>
 <script type="text/javascript">
 // global 변수 선언
 var colNames, colModel, sPKColumn, searchData;
