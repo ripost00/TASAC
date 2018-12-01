@@ -8,15 +8,16 @@
 
 	<!-- 장치 및 기능변경 목록 조회 -->
 	<select id="DevcHistDAO.selectDevcHistList" parameterClass="paramMap" resultClass="egovMap">
-		SELECT A.*
-		      ,TO_CHAR(A.MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE_VIEW
-		      ,TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE_VIEW
-		      ,DECODE(A.DRIVING_MODE_CHANGE_YN, 'Y','변경','-') AS DRIVING_MODE_CHANGE_VIEW
-		      ,DECODE(A.SPD_RANGE_CHANGE_YN, 'Y','변경','-') AS SPD_RANGE_CHANGE_VIEW
-		      ,DECODE(A.DEVICE_CHANGE_YN, 'Y','변경','-') AS DEVICE_CHANGE_VIEW
-		      ,ROUND((A.REG_DATE - A.MODIFY_DATE),1) AS COLDIFF
-		  FROM TB_CL_HT_DEVICECHANGE A
-		 WHERE 1=1
+    SELECT A.*
+          ,TO_CHAR(A.MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE_VIEW
+          ,TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE_VIEW
+          ,DECODE(A.DRIVING_MODE_CHANGE_YN, 'Y','변경','-') AS DRIVING_MODE_CHANGE_VIEW
+          ,DECODE(A.SPD_RANGE_CHANGE_YN, 'Y','변경','-') AS SPD_RANGE_CHANGE_VIEW
+          ,DECODE(A.DEVICE_CHANGE_YN, 'Y','변경','-') AS DEVICE_CHANGE_VIEW
+          ,ROUND((A.REG_DATE - A.MODIFY_DATE),0) - TO_NUMBER(NVL(B.DATA1,0)) || ' 일 경과' AS COLDIFF
+      FROM TB_CL_HT_DEVICECHANGE A
+          ,(SELECT DATA1 FROM TB_CM_MT_PARAMETER WHERE PARAM_ID = 'defice_ch_eff_date') B
+     WHERE 1=1
 		<isNotEmpty prepend="AND" property="sChgId">
 			A.CHANGE_ID = #sChgId#
 		</isNotEmpty>
@@ -34,18 +35,16 @@
 
 	<!-- Excel : 장치 및 기능변경 목록 조회 -->
 	<select id="DevcHistDAO.selectDevcExcelList" parameterClass="paramMap" resultClass="egovMap">
-		SELECT A.*
-		      ,TO_CHAR(A.MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE_VIEW
-		      ,TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE_VIEW
-		      ,DECODE(A.DRIVING_MODE_CHANGE_YN, 'Y','변경','-') AS DRIVING_MODE_CHANGE_VIEW
-		      ,DECODE(A.SPD_RANGE_CHANGE_YN, 'Y','변경','-') AS SPD_RANGE_CHANGE_VIEW
-		      ,DECODE(A.DEVICE_CHANGE_YN, 'Y','변경','-') AS DEVICE_CHANGE_VIEW
-		      ,ROUND((A.REG_DATE - A.MODIFY_DATE),1) AS COLDIFF
-		  FROM TB_CL_HT_DEVICECHANGE A
-		 WHERE 1=1
-		<isNotEmpty prepend="AND" property="sChgId">
-			A.CHANGE_ID = #sChgId#
-		</isNotEmpty>
+    SELECT A.*
+          ,TO_CHAR(A.MODIFY_DATE, 'YYYY-MM-DD HH24:MI') AS MODIFY_DATE_VIEW
+          ,TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE_VIEW
+          ,DECODE(A.DRIVING_MODE_CHANGE_YN, 'Y','변경','-') AS DRIVING_MODE_CHANGE_VIEW
+          ,DECODE(A.SPD_RANGE_CHANGE_YN, 'Y','변경','-') AS SPD_RANGE_CHANGE_VIEW
+          ,DECODE(A.DEVICE_CHANGE_YN, 'Y','변경','-') AS DEVICE_CHANGE_VIEW
+          ,ROUND((A.REG_DATE - A.MODIFY_DATE),0) - TO_NUMBER(NVL(B.DATA1,0)) || ' 일 경과' AS COLDIFF
+      FROM TB_CL_HT_DEVICECHANGE A
+          ,(SELECT DATA1 FROM TB_CM_MT_PARAMETER WHERE PARAM_ID = 'defice_ch_eff_date') B
+     WHERE 1=1
 		<isNotEmpty prepend="AND" property="sTmpNo">
 			A.TMP_RACE_NUMBER = #sTmpNo#
 		</isNotEmpty>

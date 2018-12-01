@@ -12,15 +12,16 @@
 <script type="text/javascript">
 var colModelMast = [
 	{ label: '기준일ID',		name: 'stndDtKey',				hidden: true },
-	{ label: '임시운행등록번호',name: 'tmpRaceNumber',			width: 120,	align: "center" },
 	{ label: '임시운행기관',	name: 'tmpRaceAgency',			width: 200 },
-	{ label: '보험증서번호',	name: 'insLetterNumber',		width: 150,	align: "center" },
-	{ label: '보험가입일자',	name: 'insInitDateView',		width: 150,	align: "center" },
+	{ label: '임시운행등록번호',name: 'tmpRaceNumber',			width: 120,	align: "center" },
 	{ label: '기준일자',		name: 'stndDtView',				width: 120,	align: "center" },
 	{ label: '등록일시',		name: 'regDateView',			width: 120,	align: "center" },
 	{ label: '총주행거리',		name: 'totalDrivingDist',		width: 150,	align: "center" },
 	{ label: '자율모드주행거리',name: 'autoDrivingDist',		width: 150,	align: "center" },
-	{ label: '일반모드주행거리',name: 'nomalDrivingDist',		width: 150,	align: "center" }
+	{ label: '일반모드주행거리',name: 'nomalDrivingDist',		width: 150,	align: "center" },
+//	{ label: '보험증서번호',	name: 'insLetterNumber',		width: 150,	align: "center" },
+	{ label: '보험가입일자',	name: 'insInitDateView',		width: 150,	align: "center" },
+	{ label: '등록기한 경과',	name: 'coldiff',		width: 150,	align: "center" }
 ];
 
 var colModelDtl2 = [
@@ -78,7 +79,7 @@ $(document).ready(function() {
 	//달력 이벤트
 	$( "#stdate" ).datepicker();
 	$( "#eddate" ).datepicker();
-	
+
 	$("#sTmpNo").keypress(function(e) {
 	    if(e.keyCode == 13) fn_search();
 	});
@@ -175,7 +176,7 @@ function fn_searchDtl4(stdDt, tmpNo) {
 
 function fn_excel() {
 	var columnsNm = [], datafield = [];
-	for (var i=0; i<colModelMast.length-1; i++) {
+	for (var i=0; i<colModelMast.length; i++) {
 		columnsNm[i] = colModelMast[i].label;
 		datafield[i] = colModelMast[i].name;
 	}

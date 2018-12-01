@@ -12,20 +12,11 @@
 <script type="text/javascript">
 var colModelMast = [
 	{ label: '사고ID',		name: 'accId',						hidden: true },
-	{ label: '임시운행등록번호',name: 'tmpRaceNumber',				width: 100,	align: "center" },
+	{ label: '임시운행등록번호', name: 'tmpRaceNumber',				width: 100,	align: "center" },
 	{ label: '임시운행기관',		name: 'tmpRaceAgency',				width: 150 },
-	{ label: '사고일시',			name: 'accDateView',				width: 100,	align: "center" },
-	{ label: '등록일시',		name: 'regDateView',				width: 100,	align: "center" },
-	{ label: '장소',			name: 'place',						width: 200 },
-	// { label: '기상상황',		name: 'weatherView',				width: 100,	align: "center" },
-	// { label: '도로상황',		name: 'roadSituationView',			width: 100,	align: "center" },
-	// { label: '도로유형코드',	name: 'roadTypeCdView',				width: 100,	align: "center" },
-	{ label: '주행모드',		name: 'autocarDrivingModeView',		width: 100,	align: "center" },
-	{ label: '주행상태',		name: 'autocarDrivingStatusCdView',	width: 60,	align: "center" }
-	// { label: '운행속도',		name: 'autocarSpeed',				width: 60,	align: "center" },
-	// { label: '승차인원',		name: 'autocarRideNumber',			width: 60,	align: "center" },
-	// { label: '적재량',		name: 'autocarLoadVol',				width: 60,	align: "center" },
-	// { label: '파손정도',		name: 'autocarDamageView',			width: 60,	align: "center" }
+	{ label: '사고일시',			name: 'accDateView',				width: 120,	align: "center" },
+	{ label: '등록일시',		name: 'regDateView',				width: 120,	align: "center" },
+	{ label: '장소',			name: 'place',						width: 200 }
 ];
 
 $(window).resize(function(event) {
@@ -52,7 +43,7 @@ $(document).ready(function() {
 	//달력 이벤트
 	$( "#stdate" ).datepicker();
 	$( "#eddate" ).datepicker();
-	
+
 	$("#sTmpNo").keypress(function(e) {
 	    if(e.keyCode == 13) fn_search();
 	});
@@ -88,6 +79,28 @@ function fn_search() {
 
 function fn_searchFormMast(rowId) {
 	var rowData = $("#gridList1").jqGrid("getRowData", rowId);
+
+	commonAjax({ "sAccId": rowData.accId }, "/record/incident/selectIncdHistList.do", function(returnData, textStatus, jqXHR) {
+		if (returnData.rows.length == 0) return;
+
+		var formData = returnData.rows[0];
+
+		$("#weatherView").html(formData.weatherView);
+		$("#roadSituationView").html(formData.roadSituationView);
+		$("#roadTypeCdView").html(formData.roadTypeCdView);
+		$("#autocarDrivingModeView").html(formData.autocarDrivingModeView);
+		$("#autocarDrivingStatusCdView").html(formData.autocarDrivingStatusCdView);
+		$("#autocarSpeed").html(formData.autocarSpeed);
+		$("#autocarRideNumber").html(formData.autocarRideNumber);
+		$("#autocarLoadVol").html(formData.autocarLoadVol);
+		$("#autocarDamageView").html(formData.autocarDamageView);
+		$("#coldiff").html(formData.coldiff);
+		// $("#humanInjuryType").html(formData.humanInjuryTypeView);
+		// $("#autocarHumanSex").html(formData.autocarHumanSexView);
+		// $("#autocarHumanAge").html(formData.autocarHumanAge);
+		$("#accDetailInfo").html(formData.accDetailInfo);
+
+	});
 
 	commonAjax({ "sAccId": rowData.accId, "sDrvNo": rowData.tmpRaceNumber }, "/record/video/selectAccVideoList.do", function(returnData, textStatus, jqXHR) {
 
@@ -150,8 +163,10 @@ function fn_excel() {
 			<a href="javascript:fn_initClear()" class="btn_refresh" title="초기화"></a>
 			<i></i>
 			<a href="javascript:fn_search()" class="btn_search" title="조회"></a>
+			<!--
 			<i></i>
 			<a href="javascript:fn_excel()" class="btn_excel" title="엑셀"></a>
+			-->
 		</div>
 	</div>
 
@@ -177,16 +192,75 @@ function fn_excel() {
 		</form>
 	</div>
 
-	<div id="grid1" class="float_left" style="width: calc(50% - 27px); height: calc(100% - 109px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
-		<table id="gridList1"></table>
+	<div class="float_left w100p" style="width: calc(50% - 25px); height: calc(100% - 109px);">
+
+		<div id="grid1" class="float_left" style="width: calc(100% - 21.5px); height: calc(50% - 10px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
+			<table id="gridList1"></table>
+		</div>
+
+		<div id="form1" class="form_box" style="width: calc(100% - 21.5px); height: calc(50% - 20px); margin-top: 0px;">
+			<form id="detailForm" name="detailForm" method="post">
+				<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
+
+				<table summary="테이블" class="table1">
+					<caption></caption>
+					<colgroup>
+						<col width="20%" />
+						<col width="30%" />
+						<col width="20%" />
+						<col width="30%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>기상상황</th>
+							<td><div id="weatherView"></div></td>
+							<th>도로상황</th>
+							<td><div id="roadSituationView"></div></td>
+						</tr>
+						<tr>
+							<th>도로유형코드</th>
+							<td><div id="roadTypeCdView"></div></td>
+							<th>주행모드</th>
+							<td><div id="autocarDrivingModeView"></div></td>
+						</tr>
+						<tr>
+							<th>주행상태</th>
+							<td><div id="autocarDrivingStatusCdView"></div></td>
+							<th>운행속도</th>
+							<td><div id="autocarSpeed"></div></td>
+						</tr>
+						<tr>
+							<th>승차인원</th>
+							<td><div id="autocarRideNumber"></div></td>
+							<th>적재량</th>
+							<td><div id="autocarLoadVol"></div></td>
+						</tr>
+						<tr>
+							<th>파손정도</th>
+							<td><div id="autocarDamageView"></div></td>
+							<th>등록기한 경과</th>
+							<td><div id="coldiff"></div></td>
+						</tr>
+						<tr>
+							<th style="height: 150px;">사고상세묘사</th>
+							<td colspan="3">
+								<div id="accDetailInfo"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
 	</div>
 
-	<div style="width: calc(50% - 27px); height: calc(100% - 109px); float: left; border: 1px solid #c5c5c5; border-radius: 3px; background: #fff; padding: 10px; margin-left: 10px;">
-		<div style="overflow: auto; width: 100%; height: 100%;">
+	<div style="width: calc(50% - 10px); height: calc(100% - 109px); float: left; border: 1px solid #c5c5c5; border-radius: 3px; background: #fff; padding: 10px; margin-left: 10px;">
+		<p class="float_left w100p mt10" style="font-weight: bold;">▶ mp4, mpeg 영상만 재생 됩니다.(avi 영상 재생 안됨)</p>
+
+		<div style="overflow: auto; width: 100%; height: calc(100% - 30px);">
 			<table width="100%" height="100%" class="table1">
 				<tr align="center">
 					<td>
-						<video id="movie1" src="" width="400" height="320" muted controls autoplay preload="auto">
+						<video id="movie1" src="" width="395" height="305" muted controls autoplay preload="auto">
 							<source src="" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
 							<source src="" type='video/ogg; codecs="theora, vorbis"'>
 							<source src="" type='video/webm; codecs="vp8, vorbis"'>
@@ -195,7 +269,7 @@ function fn_excel() {
 						</video>
 					</td>
 					<td>
-						<video id="movie2" src="" width="400" height="320" muted controls autoplay preload="auto">
+						<video id="movie2" src="" width="395" height="305" muted controls autoplay preload="auto">
 							<source src="" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
 							<source src="" type='video/ogg; codecs="theora, vorbis"'>
 							<source src="" type='video/webm; codecs="vp8, vorbis"'>
@@ -206,7 +280,7 @@ function fn_excel() {
 				</tr>
 				<tr align="center">
 					<td>
-						<video id="movie3" src="" width="400" height="320" muted controls autoplay preload="auto">
+						<video id="movie3" src="" width="395" height="305" muted controls autoplay preload="auto">
 							<source src="" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
 							<source src="" type='video/ogg; codecs="theora, vorbis"'>
 							<source src="" type='video/webm; codecs="vp8, vorbis"'>
@@ -215,7 +289,7 @@ function fn_excel() {
 						</video>
 					</td>
 					<td>
-						<video id="movie4" src="" width="400" height="320" muted controls autoplay preload="auto">
+						<video id="movie4" src="" width="395" height="305" muted controls autoplay preload="auto">
 							<source src="" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
 							<source src="" type='video/ogg; codecs="theora, vorbis"'>
 							<source src="" type='video/webm; codecs="vp8, vorbis"'>

@@ -14,18 +14,19 @@ var colModelMast = [
 	{ label: '사고ID',		name: 'accId',						hidden: true },
 	{ label: '임시운행등록번호',name: 'tmpRaceNumber',				width: 100,	align: "center" },
 	{ label: '임시운행기관',		name: 'tmpRaceAgency',				width: 150 },
-	{ label: '사고일시',			name: 'accDateView',				width: 100,	align: "center" },
-	{ label: '등록일시',		name: 'regDateView',				width: 100,	align: "center" },
-	{ label: '장소',			name: 'place',						width: 200 },
-	{ label: '기상상황',		name: 'weatherView',				width: 100,	align: "center" },
-	{ label: '도로상황',		name: 'roadSituationView',			width: 100,	align: "center" },
+	{ label: '사고일시',			name: 'accDateView',				width: 120,	align: "center" },
+	{ label: '등록일시',		name: 'regDateView',				width: 120,	align: "center" },
+	{ label: '장소',			name: 'place',						width: 250 },
+	{ label: '기상상황',		name: 'weatherView',				width: 80,	align: "center" },
+	{ label: '도로상황',		name: 'roadSituationView',			width: 80,	align: "center" },
 	{ label: '도로유형코드',	name: 'roadTypeCdView',				width: 100,	align: "center" },
 	{ label: '주행모드',		name: 'autocarDrivingModeView',		width: 100,	align: "center" },
 	{ label: '주행상태',		name: 'autocarDrivingStatusCdView',	width: 60,	align: "center" },
 	{ label: '운행속도',		name: 'autocarSpeed',				width: 60,	align: "center" },
 	{ label: '승차인원',		name: 'autocarRideNumber',			width: 60,	align: "center" },
 	{ label: '적재량',		name: 'autocarLoadVol',				width: 60,	align: "center" },
-	{ label: '파손정도',		name: 'autocarDamageView',			width: 60,	align: "center" }
+	{ label: '파손정도',		name: 'autocarDamageView',			width: 60,	align: "center" },
+	{ label: '등록기한 경과',			name: 'coldiff',		width: 120,	align: "center" }
 ];
 
 var colModelDetl = [
@@ -72,7 +73,7 @@ $(document).ready(function() {
 	//달력 이벤트
 	$( "#stdate" ).datepicker();
 	$( "#eddate" ).datepicker();
-	
+
 	$("#sTmpNo").keypress(function(e) {
 	    if(e.keyCode == 13) fn_search();
 	});
@@ -123,7 +124,8 @@ function fn_searchFormMast(rowId) {
 		$("#humanInjuryType").val(formData.humanInjuryTypeView);
 		$("#autocarHumanSex").val(formData.autocarHumanSexView);
 		$("#autocarHumanAge").val(formData.autocarHumanAge);
-		$("#accDetailInfo").val(formData.accDetailInfo);
+		$("#accDetailInfo").html(formData.accDetailInfo);
+//		$("#accDetailInfo").val(formData.accDetailInfo);
 
 		fn_searchDetl(formData.accId);
 	});
@@ -209,14 +211,14 @@ function fn_report() {
 	<div class="float_left w100p" style="height: calc(50% - 69px); margin-top: 16px;">
 		<p class="float_left w100p mt10" style="font-weight: bold;">▶ 사고차량 정보</p>
 
-		<div id="form1" class="form_box" style="width: 568px; height: calc(100% - 21.5px); margin-top: 0px;">
+		<div id="form1" class="form_box" style="width: 768px; height: calc(100% - 21.5px); margin-top: 0px;">
 			<form id="detailForm" name="detailForm" method="post">
 				<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
 
 				<table summary="테이블" class="table1">
 					<caption></caption>
 					<colgroup>
-						<col width="30%" />
+						<col width="20%" />
 						<col width="*%" />
 					</colgroup>
 					<tbody>
@@ -233,15 +235,18 @@ function fn_report() {
 							<td><input type="text" style="width: 300px; height: 19px;" id="autocarHumanAge" name="autocarHumanAge" value="" caption="나이" required="required"/></td>
 						</tr>
 						<tr>
-							<th>사고상세묘사</th>
-							<td><textarea style="width: 300px; height: 45px;" id="accDetailInfo" name="accDetailInfo" caption="사고상세묘사"></textarea></td>
+							<th style="height: 200px;">사고상세묘사</th>
+							<td>
+								<div id="accDetailInfo"></div>
+							</td>
+ 							<!--<td><textarea style="width: 300px; height: 45px;" id="accDetailInfo" name="accDetailInfo" caption="사고상세묘사"></textarea></td>-->
 						</tr>
 					</tbody>
 				</table>
 			</form>
 		</div>
 
-		<div id="grid2" class="float_left" style="float: right; width: calc(100% - 600px); height: 100%;">
+		<div id="grid2" class="float_left" style="float: right; width: calc(100% - 800px); height: 100%;">
 			<table id="gridList2"></table>
 		</div>
 	</div>

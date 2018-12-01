@@ -11,14 +11,15 @@
 <script src="/js/jquery-ui-1.12.1.custom/datepicker-ko.js"></script> <!-- jQuery 달력 -->
 <script type="text/javascript">
 var colModelMast = [
-	{ label: '변경ID',					name: 'changeId',							hidden: true },
-	{ label: '임시운행등록번호',name: 'tmpRaceNumber',				width: 100,	align: "center" },
-	{ label: '임시운행기관',		name: 'tmpRaceAgency',				width: 150 },
-	{ label: '변경일시',				name: 'modifyDateView',				width: 100,	align: "center" },
-	{ label: '등록일시',				name: 'regDateView',					width: 100,	align: "center" },
-	{ label: '주행모드변경',		name: 'drivingModeChangeView',width: 120,	align: "center" },
-	{ label: '작동속도범위변경',name: 'spdRangeChangeView',		width: 120,	align: "center" },
-	{ label: '구조 및 장치변경',name: 'deviceChangeView',			width: 120,	align: "center" }
+	{ label: '변경ID',						name: 'changeId',							hidden: true },
+	{ label: '임시운행등록번호',	name: 'tmpRaceNumber',				width: 100,	align: "center" },
+	{ label: '임시운행기관',			name: 'tmpRaceAgency',				width: 150 },
+	{ label: '변경일시',					name: 'modifyDateView',				width: 100,	align: "center" },
+	{ label: '등록일시',					name: 'regDateView',					width: 100,	align: "center" },
+	{ label: '주행모드변경',			name: 'drivingModeChangeView',width: 100,	align: "center" },
+	{ label: '작동속도범위변경',	name: 'spdRangeChangeView',		width: 120,	align: "center" },
+	{ label: '구조 및 장치변경',	name: 'deviceChangeView',			width: 120,	align: "center" },
+	{ label: '등록기한 경과',			name: 'coldiff',		width: 120,	align: "center" }
 ];
 
 $(window).resize(function(event) {
@@ -105,7 +106,7 @@ function fn_searchFormMast(rowId) {
 
 function fn_excel() {
 	var columnsNm = [], datafield = [];
-	for (var i=0; i<colModelMast.length-1; i++) {
+	for (var i=0; i<colModelMast.length; i++) {
 		columnsNm[i] = colModelMast[i].label;
 		datafield[i] = colModelMast[i].name;
 	}
