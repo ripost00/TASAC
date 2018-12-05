@@ -410,13 +410,11 @@ function fn_Site() {
 <body>
 	<!-- header -->
 	<div id="header">
-		<!-- user -->
+
 		<div class="user">
-<!-- 			<p><img src="/images/header/top1_ico1.png" alt="" /><a href="javascript:fn_openUserInfo();">${userVo.userNm}</a>님</p> -->
 			<p><img src="/images/header/top1_ico1.png" alt="" />${userVo.userNm}님</p>
 			<strong><a href="javascript:fn_logout();">로그아웃</a></strong>
 		</div>
-		<!-- //user -->
 
 		<!-- tmenu -->
 		<ul class="tmenu"></ul>

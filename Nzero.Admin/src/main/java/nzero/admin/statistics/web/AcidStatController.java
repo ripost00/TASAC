@@ -1,5 +1,6 @@
 package nzero.admin.statistics.web;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +128,9 @@ public class AcidStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectAcidStatYearList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = acidStatService.selectYearTemp(paramMap);
@@ -153,6 +157,9 @@ public class AcidStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectAcidStatYearListChart(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_TEMP")) {
 			mv = acidStatService.selectYearTempChart(paramMap);
@@ -179,6 +186,9 @@ public class AcidStatController extends BaseController {
 	@ResponseBody
     public ModelAndView selectAcidStatYearExcel(HttpServletRequest request, ModelMap model) throws Exception {
 	    SimpleData paramData = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramData.getString("yearArr").split("\\s*,\\s*"));
+		paramData.set("yearList", yearList);
+	    
 	    ModelAndView excelMV = null;
 		if (paramData.getString("sType").equals("SEL_TEMP")) {
 			excelMV = acidStatService.selectYearTemp(paramData);

@@ -1,5 +1,6 @@
 package nzero.admin.statistics.web;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +110,9 @@ public class ControlStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectControlStatYearList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectYearAll(paramMap);
@@ -129,6 +133,9 @@ public class ControlStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectControlStatYearListChart(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = controlStatService.selectYearAllChart(paramMap);
@@ -149,6 +156,9 @@ public class ControlStatController extends BaseController {
 	@ResponseBody
     public ModelAndView selectControlStatYearExcel(HttpServletRequest request, ModelMap model) throws Exception {
 	    SimpleData paramData = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramData.getString("yearArr").split("\\s*,\\s*"));
+		paramData.set("yearList", yearList);
+		
 		ModelAndView excelMV = null;
 		if (paramData.getString("sType").equals("SEL_ALL")) {
 			excelMV = controlStatService.selectYearAll(paramData);
