@@ -507,7 +507,7 @@ public class IncdExcel {
 	        FileOutputStream fileOutput = null;
 	        try{
 	    		if(filePath != null && !"".equals(filePath) ) {
-					filePath = ExcelUtil.getReplace(filePath, "/", "\\\\");
+//					filePath = ExcelUtil.getReplace(filePath, "/", "\\\\");
 	    		}
 				fileOutput = new FileOutputStream(filePath);
 				wb.write(fileOutput);
