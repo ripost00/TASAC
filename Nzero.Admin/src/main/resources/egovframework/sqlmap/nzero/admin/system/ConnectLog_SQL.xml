@@ -11,7 +11,7 @@
 		SELECT A.*
 		      ,B.USER_NM
 		      ,B.AGENCY_CD
-		      ,fn_ct_get_code_name('agency_cd', B.AGENCY_CD) AS AGENCY_CD_VIEW
+		      ,B.AGENCY_CD AS AGENCY_CD_VIEW
 		      ,fn_ct_get_code_name('conect_mthd', A.CONECT_MTHD) AS CONECT_MTHD_VIEW
 		      ,TO_CHAR(A.CREAT_DT, 'YYYY-MM-DD HH24:MI') AS CREAT_DT_VIEW
 		  FROM TB_WEB_IT_USERCONNECT A

@@ -50,7 +50,7 @@
 		SELECT '권한승인요청' AS REQ_TP_NM, 
 		       USER_ID,
 		       fn_ct_get_code_name('class_id',CLASS_ID) AS CLASS_NM,
-		       fn_ct_get_code_name('agency_cd',AGENCY_CD) AS AGENCY_NM,
+		       AGENCY_CD AS AGENCY_NM,
 		       APPOR_STATUS,
 		       CNCL_NOTE,
 		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE

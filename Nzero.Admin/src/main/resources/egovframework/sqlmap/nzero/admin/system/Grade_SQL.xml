@@ -10,7 +10,7 @@
 		/* GradeDAO.selectGradeList */
     SELECT A.*
           ,fn_ct_get_code_name('auth_cd', A.AUTH_CD) AS AUTH_CD_VIEW
-          ,fn_ct_get_code_name('agency_cd', A.AGENCY_CD) AS AGENCY_CD_VIEW
+          ,A.AGENCY_CD AS AGENCY_CD_VIEW
           ,fn_ct_get_code_name('appor_status', A.APPOR_STATUS) AS APPOR_STATUS_VIEW
           ,fn_ct_get_code_name('class_id', A.CLASS_ID) AS CLASS_ID_VIEW
           ,TO_CHAR(A.REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE_VIEW
