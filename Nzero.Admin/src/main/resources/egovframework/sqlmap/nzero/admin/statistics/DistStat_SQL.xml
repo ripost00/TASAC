@@ -112,14 +112,18 @@
 		SELECT '전체' AS TRN, NVL(STND_YEAR,-1) AS SYEAR, SUM(AUTO_DRIVING_DIST) AS ACNT
 		  FROM TB_ST_HT_TEMP_AUTO_YEAR
 		 WHERE 1=1	
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#    
 		 GROUP BY CUBE(STND_YEAR)	        
 		)
 		SELECT *
 		  FROM PV
-		 PIVOT (SUM(ACNT) FOR SYEAR IN ($yearArr$, -1 AS TOT))
+		 PIVOT (SUM(ACNT) FOR SYEAR IN 
+		 <iterate property="yearList" open="(" close=", -1 AS TOT)" conjunction=",">
+		 	$yearList[]$ 
+		 </iterate>
+		 )
 		 WHERE TRN IS NOT NULL
-		 ORDER BY TRN		 
+		 ORDER BY TRN		
 	</select>	
 	
 	<select id="DistStatDAO.selectYearTemp" parameterClass="paramMap" resultClass="egovMap" remapResults="true">
@@ -131,12 +135,16 @@
 		<isNotEmpty property="sKeyword">
 		   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#    
 		 GROUP BY CUBE(TMP_RACE_NUMBER, STND_YEAR)	        
 		)
 		SELECT *
 		  FROM PV
-		 PIVOT (SUM(ACNT) FOR SYEAR IN ($yearArr$, -1 AS TOT))
+		 PIVOT (SUM(ACNT) FOR SYEAR IN 
+		 <iterate property="yearList" open="(" close=", -1 AS TOT)" conjunction=",">
+		 	$yearList[]$ 
+		 </iterate>
+		 )
 		 WHERE TRN IS NOT NULL
 		 ORDER BY TRN		 
 	</select>	
@@ -150,12 +158,16 @@
 		<isNotEmpty property="sKeyword">
 		   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$    
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#    
 		 GROUP BY CUBE(FN_CT_GET_AGENCY_NAME(USER_ID), STND_YEAR)	        
 		)
 		SELECT *
 		  FROM PV
-		 PIVOT (SUM(ACNT) FOR SYEAR IN ($yearArr$, -1 AS TOT))
+		 PIVOT (SUM(ACNT) FOR SYEAR IN 
+		 <iterate property="yearList" open="(" close=", -1 AS TOT)" conjunction=",">
+		 	$yearList[]$ 
+		 </iterate>
+		 )
 		 WHERE TRN IS NOT NULL
 		 ORDER BY TRN		 
 	</select>	
@@ -165,7 +177,7 @@
 		SELECT '전체' AS TRN, STND_YEAR||'년' AS STERM, SUM(AUTO_DRIVING_DIST) AS ACNT
 		  FROM TB_ST_HT_TEMP_AUTO_YEAR
 		 WHERE 1=1		
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#
 		 GROUP BY STND_YEAR
 		 ORDER BY STERM
 	</select>
@@ -178,7 +190,7 @@
 		<isNotEmpty property="sKeyword">
 		   AND TMP_RACE_NUMBER LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#
 		 ORDER BY STERM, TRN
 	</select>
 
@@ -190,7 +202,7 @@
 		<isNotEmpty property="sKeyword">
 		   AND FN_CT_GET_AGENCY_NAME(USER_ID) LIKE '%'||#sKeyword#||'%'
 		</isNotEmpty>		
-		   AND STND_YEAR BETWEEN $sDate$ AND $eDate$
+		   AND STND_YEAR BETWEEN #sDate# AND #eDate#
 		 ORDER BY STERM, TRN
 	</select>
 		

@@ -1,5 +1,6 @@
 package nzero.admin.statistics.web;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import nzero.admin.egovframework.cmmn.model.SimpleData;
+import nzero.admin.egovframework.cmmn.util.StringUtils;
 import nzero.admin.egovframework.cmmn.web.BaseController;
 import nzero.admin.statistics.service.DistStatService;
 
@@ -100,6 +102,9 @@ public class DistStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectDistStatYearList(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = distStatService.selectYearAll(paramMap);
@@ -117,6 +122,9 @@ public class DistStatController extends BaseController {
 	@ResponseBody
 	public ModelAndView selectDistStatYearListChart(HttpServletRequest request) throws Exception {
 		SimpleData paramMap = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramMap.getString("yearArr").split("\\s*,\\s*"));
+		paramMap.set("yearList", yearList);
+		
 		ModelAndView mv = null;
 		if (paramMap.getString("sType").equals("SEL_ALL")) {
 			mv = distStatService.selectYearAllChart(paramMap);
@@ -134,6 +142,9 @@ public class DistStatController extends BaseController {
 	@ResponseBody
     public ModelAndView selectDistStatYearExcel(HttpServletRequest request, ModelMap model) throws Exception {
 	    SimpleData paramData = getSimpleData(request);
+		List<String> yearList = Arrays.asList(paramData.getString("yearArr").split("\\s*,\\s*"));
+		paramData.set("yearList", yearList);
+		
 		ModelAndView excelMV = null;
 		if (paramData.getString("sType").equals("SEL_ALL")) {
 			excelMV = distStatService.selectYearAll(paramData);
