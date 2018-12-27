@@ -15,11 +15,11 @@
 
    <!-- 주행거리 정보 -->
    <select id="MainDAO.selectDrivingInfo" parameterClass="java.util.HashMap" resultClass="egovMap">
-      SELECT TO_CHAR(SUM(A.Total_Driving_Dist), '999,999,999,999,999') AS TOTAL_VIEW
-            ,TO_CHAR(SUM(A.Auto_Driving_Dist), '999,999,999,999,999') AS AUTO_VIEW
-            ,TO_CHAR(SUM(A.Nomal_Driving_Dist), '999,999,999,999,999') AS NOMAL_VIEW
-        FROM TB_CL_HT_DRIVING A
-       WHERE 1=1
+    SELECT NVL(TO_CHAR(SUM(A.Total_Driving_Dist), '999,999,999,999,999'),'-') AS TOTAL_VIEW
+          ,NVL(TO_CHAR(SUM(A.Auto_Driving_Dist), '999,999,999,999,999'),'-') AS AUTO_VIEW
+          ,NVL(TO_CHAR(SUM(A.Nomal_Driving_Dist), '999,999,999,999,999'),'-') AS NOMAL_VIEW
+      FROM TB_CL_HT_DRIVING A
+     WHERE 1=1
    </select>
 
    <!-- 데이터 건수 -->
@@ -145,7 +145,7 @@
 		          FROM DBA_FREE_SPACE
 		         GROUP BY TABLESPACE_NAME) B
 		 WHERE A.TABLESPACE_NAME = B.TABLESPACE_NAME
-		   AND A.TABLESPACE_NAME LIKE '%TS_TAASC%'
+		   AND A.TABLESPACE_NAME LIKE '%TS_AVDS%'
 		 ORDER BY A.TABLESPACE_NAME
 	]]>		 	 		 		 
 	</select>	
