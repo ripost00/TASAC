@@ -6,8 +6,10 @@
 
 <%
 	String menuNm = (request.getParameter("menuNm") == null ? "" : request.getParameter("menuNm"));
-	menuNm = new String(menuNm.getBytes("8859_1"),"UTF-8");  
+	menuNm = new String(menuNm.getBytes("8859_1"),"UTF-8");
 %>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="stylesheet" href="<c:url value='/js/jquery-ui-1.12.1.custom/jquery-ui.css' />" type="text/css"/>
 <link rel="stylesheet" href="<c:url value='/js/jqGrid_JS_5.3.1/css/ui.jqgrid.css' />" type="text/css"/>

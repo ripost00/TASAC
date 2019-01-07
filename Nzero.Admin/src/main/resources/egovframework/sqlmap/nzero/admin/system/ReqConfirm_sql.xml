@@ -10,16 +10,22 @@
 	<select id="ReqConfirmDAO.selectReqConfirmList" parameterClass="paramMap" resultClass="egovMap">
 		WITH REQ_LIST AS (
 		SELECT 'T' AS REQ_TP, '임시운행번호등록요청' AS REQ_TP_NM,
-		       TMP_RACE_NUMBER AS REQ_ID, USER_ID, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE,
+		       TMP_RACE_NUMBER AS REQ_ID, USER_ID, 
+           (SELECT USER_NM FROM TB_WEB_IT_USER WHERE USER_ID = TB_CM_HT_TEMPOPER.USER_ID) AS USER_NM,
+           (SELECT AGENCY_CD FROM TB_WEB_IT_USER WHERE USER_ID = TB_CM_HT_TEMPOPER.USER_ID) AS AGENCY_CD,
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE,
 		       APPOR_STATUS AS STATUS_CD, fn_ct_get_code_name('appor_status', APPOR_STATUS) AS STATUS_NM
 		  FROM TB_CM_HT_TEMPOPER
 		UNION ALL
 		SELECT 'U' AS REQ_TP, '권한승인요청' AS REQ_TP_NM,
-		       USER_ID AS REQ_ID, USER_ID, TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE,
+		       USER_ID AS REQ_ID, USER_ID, 
+           USER_NM,
+           AGENCY_CD,
+		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE,
 		       APPOR_STATUS AS STATUS_CD, fn_ct_get_code_name('appor_status', APPOR_STATUS) AS STATUS_NM
 		  FROM TB_WEB_IT_USER
 		)
-		SELECT REQ_TP, REQ_TP_NM, REQ_ID, USER_ID, REG_DATE, STATUS_CD, STATUS_NM
+		SELECT REQ_TP, REQ_TP_NM, REQ_ID, USER_ID, USER_NM, AGENCY_CD, REG_DATE, STATUS_CD, STATUS_NM
 		  FROM REQ_LIST
 		<isNotEmpty prepend="WHERE" property="sReqType">  
 		 	REQ_TP = #sReqType#
@@ -36,6 +42,8 @@
 		       TO_CHAR(INS_INIT_DATE, 'YYYY-MM-DD') AS INS_INIT_DATE,
 		       DEED_FILENAME,
 		       USER_ID,
+           (SELECT USER_NM FROM TB_WEB_IT_USER WHERE USER_ID = TB_CM_HT_TEMPOPER.USER_ID) AS USER_NM,
+           (SELECT AGENCY_CD FROM TB_WEB_IT_USER WHERE USER_ID = TB_CM_HT_TEMPOPER.USER_ID) AS AGENCY_CD,
 		       APPOR_STATUS,
 		       CNCL_NOTE,
 		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE,
@@ -49,8 +57,10 @@
 	<select id="ReqConfirmDAO.selectReqConfirmInfo_U" parameterClass="paramMap" resultClass="egovMap">
 		SELECT '권한승인요청' AS REQ_TP_NM, 
 		       USER_ID,
+           USER_NM,
+           AGENCY_CD,
+           fn_ct_get_code_name('auth_cd',AUTH_CD) AS AUTH_NM,
 		       fn_ct_get_code_name('class_id',CLASS_ID) AS CLASS_NM,
-		       fn_ct_get_code_name('agency_cd',AGENCY_CD) AS AGENCY_NM,
 		       APPOR_STATUS,
 		       CNCL_NOTE,
 		       TO_CHAR(REG_DATE, 'YYYY-MM-DD HH24:MI') AS REG_DATE
@@ -73,6 +83,7 @@
 	<![CDATA[
           UPDATE TB_WEB_IT_USER
              SET APPOR_STATUS  	= #apporStatus#,
+                 USE_YN = 'Y',
                  CNCL_NOTE     	= #cnclNote#   
            WHERE USER_ID = #reqId#
     ]]>

@@ -59,8 +59,16 @@
 						<td><span style="width: 100%; height: 19px;" id="reqTpNm" name="reqTpNm"></span></td>
 					</tr>
 					<tr>
-						<th>요청ID</th>
+						<th>요청자 ID</th>
 						<td><span style="width: 100%; height: 19px;" id="userId" name="userId"></span></td>
+					</tr>
+					<tr>
+						<th>요청자</th>
+						<td><span style="width: 100%; height: 19px;" id="userNm" name="userNm"></span></td>
+					</tr>
+					<tr>
+						<th>기관명</th>
+						<td><span style="width: 100%; height: 19px;" id="agencyCd" name="agencyCd"></span></td>
 					</tr>
 					<tr>
 						<th>등록일자</th>
@@ -78,12 +86,12 @@
 										</colgroup>
 										<tbody>
 											<tr>
-												<th>등급</th>
-												<td><span style="width: 100%; height: 19px;" id="classNm" name="classNm"></span></td>
+												<th>요청권한</th>
+												<td><span style="width: 100%; height: 19px;" id="authNm" name="authNm"></span></td>
 											</tr>
 											<tr>
-												<th>기관코드</th>
-												<td><span style="width: 100%; height: 19px;" id="agencyNm" name="agencyNm"></span></td>
+												<th>등급</th>
+												<td><span style="width: 100%; height: 19px;" id="classNm" name="classNm"></span></td>
 											</tr>
 										</tbody>
 									</table>
@@ -150,7 +158,9 @@ var colModel = [
 	{ name: 'reqTp', hidden: true },
 	{ name: 'reqId', hidden: true },
 	{ label: '승인요청구분',	name: 'reqTpNm', align: "center" },
-	{ label: '요청ID',	name: 'userId', align: "center" },
+	{ label: '요청자 ID',	name: 'userId', align: "center" },
+	{ label: '요청자',	name: 'userNm', align: "center" },
+	{ label: '기관명',	name: 'agencyCd', align: "center" },
 	{ label: '등록일시',	name: 'regDate', align: "center" },
 	{ label: '상태',	name: 'statusNm', align: "center", formatter:fontColorFormatter }
 ];
@@ -238,6 +248,8 @@ function fn_searchForm(rowId) {
 
 		$("#reqTpNm").html(formData.reqTpNm);
 		$("#userId").html(formData.userId);
+		$("#userNm").html(formData.userNm);
+		$("#agencyCd").html(formData.agencyCd);
 		$("#regDate").html(formData.regDate);
 		if(reqTp == 'T') {
 			$("#tmpRaceNumber").html(formData.tmpRaceNumber);
@@ -256,8 +268,8 @@ function fn_searchForm(rowId) {
 			$('#subform2').css("display", "block");
 		}
 		else if(reqTp == 'U') {
+			$("#authNm").html(formData.authNm);
 			$("#classNm").html(formData.classNm);
-			$("#agencyNm").html(formData.agencyNm);
 
 			$('#subform1').css("display", "block");
 		}

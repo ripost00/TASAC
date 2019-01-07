@@ -9,13 +9,13 @@
 	
 	<select id="LoginDAO.selectUserVo" parameterClass="paramMap" resultClass="userVo">
 		/* LoginDAO.selectUserVo */
-        SELECT USER_ID AS userId
-			 , USER_NM AS userNm
-			 , USER_PWD AS userPwd
-			 , AUTH_ID AS authId
-          FROM TB_CM_IT_USER
-         WHERE USER_ID = #userId#
-           AND USE_YN = 'Y'
+		SELECT USER_ID AS userId
+		     , USER_NM AS userNm
+		     , USER_PWD AS userPwd
+		     , AUTH_ID AS authId
+		  FROM TB_CM_IT_USER
+		 WHERE USER_ID = #userId#
+		   AND USE_YN = 'Y'
 	</select>
 	
 	<select id="LoginDAO.selectMainMenuList" parameterClass="paramMap" resultClass="egovMap">
