@@ -35,6 +35,7 @@ $(document).ready(function() {
 		$("#gridList1").jqGrid("setSelection", $("#rowId").val());
 	}
 	, function(rowid, status, e) {
+		fn_searchFormMast(rowid);
 	});
 
 	fn_init();
@@ -46,7 +47,7 @@ $(document).ready(function() {
 	//달력 이벤트
 	$( "#stdate" ).datepicker();
 	$( "#eddate" ).datepicker();
-	
+
 	$("#sTitle").keypress(function(e) {
 	    if(e.keyCode == 13) fn_search();
 	});

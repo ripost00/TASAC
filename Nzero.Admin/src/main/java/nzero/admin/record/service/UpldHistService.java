@@ -13,18 +13,18 @@ import nzero.admin.egovframework.cmmn.service.impl.CommonDAO;
 
 @Service("upldHistService")
 public class UpldHistService extends EgovAbstractServiceImpl{
-        
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UpldHistService.class);
 
     @Resource(name="commonDAO")
     private CommonDAO commonDAO;
-    
+
     public ModelAndView selectUpldHistList(SimpleData paramMap) throws Exception {
         return commonDAO.selectModel("UpldHistDAO.selectUpldHistList", paramMap);    	
     }
-
+    
     public ModelAndView selectUpldExcelList(SimpleData paramMap) throws Exception {
         return commonDAO.selectModel("UpldHistDAO.selectUpldExcelList", paramMap);
     }
-    
+
 }
