@@ -145,6 +145,7 @@ function fn_searchDetl(bSeq) {
 	</div>
 
 	<div id="grid1" class="float_left" style="width: calc(70% - 27px); height: calc(100% - 109px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
+		<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
 		<table id="gridList1"></table>
 	</div>
 
