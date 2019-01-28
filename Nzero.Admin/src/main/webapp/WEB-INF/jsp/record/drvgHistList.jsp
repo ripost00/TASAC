@@ -21,7 +21,8 @@ var colModelMast = [
 	{ label: '일반모드주행거리',name: 'nomalDrivingDist',		width: 150,	align: "center" },
 //	{ label: '보험증서번호',	name: 'insLetterNumber',		width: 150,	align: "center" },
 	{ label: '보험가입일자',	name: 'insInitDateView',		width: 150,	align: "center" },
-	{ label: '등록기한 경과',	name: 'coldiff',		width: 150,	align: "center" }
+	{ label: '등록기한 경과',	name: 'coldiff',		width: 150,	align: "center" },
+	{ label: '제어권전환 합계',	name: 'changeSum',		width: 150,	align: "center" }
 ];
 
 var colModelDtl2 = [
