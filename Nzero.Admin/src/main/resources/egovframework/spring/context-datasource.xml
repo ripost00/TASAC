@@ -37,7 +37,7 @@
     -->
 
 	<!-- oracle 접속정보-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@14.35.204.33:1521:NZERO"/>
 		<property name="username" value="tsasc"/>
@@ -49,18 +49,18 @@
 		<property name="validationQuery" value="select 1 from dual"></property>
 	</bean>
 
-	<!-- Tibero 접속정보
+	<!-- Tibero 접속정보	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.tmax.tibero.jdbc.TbDriver"/>
-		<property name="url" value="jdbc:tibero:thin:@(DESCRIPTION=(FAILOVER=ON)(LOAD_BALANCE=ON)(ADDRESS_LIST=(ADDRESS=(HOST=172.28.200.12)(PORT=8629))(ADDRESS=(HOST=172.28.200.13)(PORT=8629)))(DATABASE_NAME=gjutis))"/>
-		<property name="username" value="itsdev"/>
-		<property name="password" value="itsdev"/>
+		<property name="url" value="jdbc:tibero:thin:@10.59.33.155:8629:tsasc"/>
+		<property name="username" value="avds"/>
+		<property name="password" value="avds"/>
 		<property name="maxActive" value="300"/>
 		<property name="maxWait" value="10000"/>
 		<property name="maxIdle" value="30"/>
 		<property name="minIdle" value="20"/>
 		<property name="validationQuery" value="select 1 from dual"></property>
 	</bean>
-	 -->
+	-->
     
 </beans>
