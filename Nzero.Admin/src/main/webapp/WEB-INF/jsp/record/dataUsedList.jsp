@@ -12,14 +12,14 @@
 <script type="text/javascript">
 var colModelMast = [
 	{ label: '게시물번호',	name: 'bSeq',					hidden: true },
-	{ label: '업로드ID',		name: 'regId',				width: 120,	align: "center" },
-	{ label: '이름',				name: 'userNm',				width: 120,	align: "center" },
+	{ label: '업로드ID',		name: 'regId',				width: 100,	align: "center" },
+	{ label: '이름',				name: 'userNm',				width: 100,	align: "center" },
 	{ label: '기관명',			name: 'agencyName',		width: 200,	align: "center" },
 	{ label: '데이터유형',	name: 'bbsNm',				width: 100,	align: "center" },
 	{ label: '제목',				name: 'bTitle',				width: 300 },
 	{ label: '등록일시',		name: 'regDateView',	width: 120,	align: "center" },
 	{ label: '파일명',			name: 'saveNm',				width: 300 },
-	{ label: '파일사이즈',	name: 'fileSizeView',			width: 100,	align: "center" },
+	{ label: '파일사이즈',	name: 'fileSizeView',			width: 120,	align: "center" },
 	// { label: '주행모드',		name: 'drivingModeView',	width: 100,	align: "center" },
 	// { label: '기상상황',		name: 'weatherView',			width: 80,	align: "center" },
 	// { label: '도로상황',		name: 'roadSituationView',	width: 80,	align: "center" },
@@ -144,12 +144,12 @@ function fn_searchDetl(bSeq) {
 		</form>
 	</div>
 
-	<div id="grid1" class="float_left" style="width: calc(70% - 27px); height: calc(100% - 109px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
+	<div id="grid1" class="float_left" style="width: calc(80% - 27px); height: calc(100% - 109px); border: 1px solid #c5c5c5;  border-radius: 3px; background: #fff; padding: 10px;">
 		<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
 		<table id="gridList1"></table>
 	</div>
 
-	<div style="width: calc(30% - 27px); height: calc(100% - 109px); float: left; border: 1px solid #c5c5c5; border-radius: 3px; background: #fff; padding: 10px; margin-left: 10px;">
+	<div style="width: calc(20% - 27px); height: calc(100% - 109px); float: left; border: 1px solid #c5c5c5; border-radius: 3px; background: #fff; padding: 10px; margin-left: 10px;">
 		<div id="grid2" class="float_left" style="float: right; width: 100%; height: 100%;">
 			<table id="gridList2"></table>
 		</div>
