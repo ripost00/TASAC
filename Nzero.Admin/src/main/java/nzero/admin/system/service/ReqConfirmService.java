@@ -30,6 +30,10 @@ public class ReqConfirmService extends EgovAbstractServiceImpl {
 	public ModelAndView selectReqConfirmInfo_U(SimpleData paramMap) throws Exception {
         return commonDAO.selectModel("ReqConfirmDAO.selectReqConfirmInfo_U", paramMap);
     }
+	
+	public ModelAndView checkDuplNumber(SimpleData paramMap) throws Exception {
+        return commonDAO.selectModel("ReqConfirmDAO.checkDuplNumber", paramMap);
+    }
     
     public ModelAndView updateReqConfirm_T(SimpleData paramMap) throws Exception {
     	
@@ -39,5 +43,15 @@ public class ReqConfirmService extends EgovAbstractServiceImpl {
     public ModelAndView updateReqConfirm_U(SimpleData paramMap) throws Exception {
     	
         return commonDAO.update("ReqConfirmDAO.updateReqConfirm_U", paramMap);
+    }
+    
+    public ModelAndView deleteReqConfirm_T(SimpleData paramMap) throws Exception {
+    	
+        return commonDAO.delete("ReqConfirmDAO.deleteReqConfirm_T", paramMap);
+    }
+    
+    public ModelAndView deleteReqConfirm_U(SimpleData paramMap) throws Exception {
+    	
+        return commonDAO.delete("ReqConfirmDAO.deleteReqConfirm_U", paramMap);
     }
 }

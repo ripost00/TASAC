@@ -19,7 +19,7 @@ $(document).ready(function() {
 <div class="wrap">
 	<div class="box_search" style="height: calc(20%);">
 		<div class="float_left" style="width: calc(30%); height: calc(100%); text-align: left; line-height:calc(100%);">
-			<div style="width: 250px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
+			<div style="width: 220px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
 				<div style="display:table-cell; vertical-align:middle;"><img src="/images/main/dataSelect3.png" border="0"></div>
 				<div style="display:table-cell; vertical-align:middle;">
 					<p>
@@ -36,7 +36,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="float_left" style="width: calc(40%); height: calc(100%); text-align: left; line-height:calc(100%);">
-			<div style="width: 460px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
+			<div style="width: 600px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
 				<div style="display:table-cell; vertical-align:middle;"><img src="/images/main/dataSelect1.png" border="0"></div>
 				<div style="display:table-cell; vertical-align:middle;">
 					<p>
@@ -53,7 +53,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="float_left" style="width: calc(30%); height: calc(100%); text-align: left; line-height:calc(100%);">
-			<div style="width: 400px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
+			<div style="width: 380px; height: calc(100%); display:table; vertical-align:middle; margin: 0 auto;">
 				<div style="display:table-cell; vertical-align:middle;"><img src="/images/main/dataSelect4.png" border="0"></div>
 				<div style="display:table-cell; vertical-align:middle;">
 					<p>

@@ -316,7 +316,8 @@ function fn_excel() {
 
 	$('#columnsNm').val(getColNames());
 	$('#datafield').val(datafield);
-	$('#excelFileNm').val('사고통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	// $('#excelFileNm').val('사고통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	$('#excelFileNm').val('Acident_statistics_excel.xls');
 
 	$('#yearArr').val(yearArr);
 

@@ -59,6 +59,14 @@ public class ReqConfirmController extends BaseController {
 		return reqConfirmService.selectReqConfirmInfo_U(paramMap);
 	}
 	
+	@RequestMapping(value="/system/req/checkDuplNumber.do")
+	@ResponseBody
+	public ModelAndView checkDuplNumber(HttpServletRequest request) throws Exception {
+		SimpleData paramMap = getSimpleData(request);
+		
+		return reqConfirmService.checkDuplNumber(paramMap);
+	}
+	
 	@RequestMapping(value="/system/req/updateReqConfirmInfo_T.do")
 	@ResponseBody
 	public ModelAndView updateReqConfirmInfo_T(HttpServletRequest request) throws Exception {
@@ -75,5 +83,23 @@ public class ReqConfirmController extends BaseController {
 		SimpleData paramMap = getSimpleData(request);
 		
 		return reqConfirmService.updateReqConfirm_U(paramMap);
+	}
+	
+	@RequestMapping(value="/system/req/deleteReqConfirmInfo_T.do")
+	@ResponseBody
+	public ModelAndView deleteReqConfirmInfo_T(HttpServletRequest request) throws Exception {
+		
+		SimpleData paramMap = getSimpleData(request);
+		
+		return reqConfirmService.deleteReqConfirm_T(paramMap);
+	}
+	
+	@RequestMapping(value="/system/req/deleteReqConfirmInfo_U.do")
+	@ResponseBody
+	public ModelAndView deleteReqConfirmInfo_U(HttpServletRequest request) throws Exception {
+		
+		SimpleData paramMap = getSimpleData(request);
+		
+		return reqConfirmService.deleteReqConfirm_U(paramMap);
 	}
 }

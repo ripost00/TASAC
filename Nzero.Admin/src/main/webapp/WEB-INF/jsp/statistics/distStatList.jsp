@@ -298,7 +298,8 @@ function fn_excel() {
 
 	$('#columnsNm').val(getColNames());
 	$('#datafield').val(datafield);
-	$('#excelFileNm').val('주행거리통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	// $('#excelFileNm').val('주행거리통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	$('#excelFileNm').val('Distance_statistics_excel.xls');
 
 	$('#yearArr').val(yearArr);
 

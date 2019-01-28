@@ -46,6 +46,7 @@
 			<input type="text" style="display: none;" id="reqTp" name="reqTp" value=""/>
 			<input type="text" style="display: none;" id="saveMode" name="saveMode" value="I"/>
 			<input type="text" style="display: none;" id="rowId" name="rowId" value=""/>
+			<input type="text" style="display: none;" id="dupChkYN" name="dupChkYN" value="N"/>
 
 			<table summary="테이블" class="table1">
 				<caption></caption>
@@ -87,7 +88,8 @@
 										<tbody>
 											<tr>
 												<th>요청권한</th>
-												<td><span style="width: 100%; height: 19px;" id="authNm" name="authNm"></span></td>
+												<!-- td><span style="width: 100%; height: 19px;" id="authNm" name="authNm"></span></td -->
+												<td><select style="width: 200px; height: 25px;" id="authCd" name="authCd" caption="권한코드" required="required"></select></td>
 											</tr>
 											<tr>
 												<th>등급</th>
@@ -106,21 +108,25 @@
 										<tbody>
 											<tr>
 												<th>임시운행등록번호</th>
-												<td><span style="width: 100%; height: 19px;" id="tmpRaceNumber" name="tmpRaceNumber"></span></td>
+												<!-- td><span style="width: 100%; height: 19px;" id="tmpRaceNumber" name="tmpRaceNumber"></span></td -->
+												<td>
+													<input type="text" style="width: 200px; height: 19px;" id="tmpRaceNumber" name="tmpRaceNumber" value=""/>
+													<input type="button" style="width: 80px; height: 25px; vertical-align: bottom;" id="btnDupChk" name="btnDupChk" onclick="javascript:fn_dupCheck();" value="중복확인" disabled="true" />
+												</td>
 											</tr>
 											<tr>
 												<th>임시운행기관</th>
 												<td><span style="width: 100%; height: 19px;" id="tmpRaceAgency" name="tmpRaceAgency"></span></td>
 											</tr>
-											<tr>
+											<!-- tr>
 												<th>보험증서번호</th>
 												<td><span style="width: 100%; height: 19px;" id="insLetterNumber" name="insLetterNumber"></span></td>
-											</tr>
+											</tr -->
 											<tr>
 												<th>보험가입일자</th>
 												<td><span style="width: 100%; height: 19px;" id="insInitDate" name="insInitDate"></span></td>
 											</tr>
-											<tr>
+											<!-- tr>
 												<th>증서파일</th>
 												<td><span style="width: 100%; height: 19px;" id="deedFilename" name="deedFilename"></span></td>
 											</tr>
@@ -131,7 +137,7 @@
 											<tr>
 												<th>동력원</th>
 												<td><span style="width: 100%; height: 19px;" id="powerSource" name="powerSource"></span></td>
-											</tr>
+											</tr -->
 										</tbody>
 									</table>
 							</div>
@@ -141,10 +147,10 @@
 						<th>승인</th>
 						<td><select style="width: 100px; height: 25px;" id="apporStatus" name="apporStatus" caption="승인" required="required"></select></td>
 					</tr>
-					<tr>
+					<!-- tr>
 						<th>취소사유</th>
 						<td><input type="text" style="width: 100%; height: 19px;" id="cnclNote" name="cnclNote" value="" disabled="disabled"/></td>
-					</tr>
+					</tr -->
 				</tbody>
 			</table>
 		</form>
@@ -183,6 +189,7 @@ $(document).ready(function() {
 		}
 	);
 	commonMakeCodeComboBox("apporStatus", "appor_status");
+	commonMakeCodeComboBox("authCd", "auth_cd");
 
 	fn_init();
 	fn_search();
@@ -212,8 +219,6 @@ function fn_init() {
 function fn_initClear() {
 	document.searchForm.reset();
 	$("#gridList").jqGrid("clearGridData");
-	$("#boardContents").val("");
-	oEditors.getById["boardContents"].exec("SET_IR", [""]);
 	document.detailForm.reset();
 
 	$("#sReqType").focus();
@@ -230,6 +235,9 @@ function fn_search(selectNode) {
 }
 
 function fn_searchForm(rowId) {
+	$('#btnDupChk').prop('disabled', true);
+	$('#btnDupChk').css({'color':'#5a5a5a','font-weight':'normal'});
+
 	var rowData = $("#gridList").jqGrid("getRowData", rowId);
 	var reqTp = rowData.reqTp;
 
@@ -252,50 +260,91 @@ function fn_searchForm(rowId) {
 		$("#agencyCd").html(formData.agencyCd);
 		$("#regDate").html(formData.regDate);
 		if(reqTp == 'T') {
-			$("#tmpRaceNumber").html(formData.tmpRaceNumber);
+			$("#tmpRaceNumber").val(formData.tmpRaceNumber);
 			$("#tmpRaceAgency").html(formData.tmpRaceAgency);
-			$("#insLetterNumber").html(formData.insLetterNumber);
+			// $("#insLetterNumber").html(formData.insLetterNumber);
 			$("#insInitDate").html(formData.insInitDate);
-			if(formData.deedFilename != undefined && formData.deedFilename != '') {
-				$("#deedFilename").html('<a href="/upload/tpsv/'+formData.deedFilename+'" download>'+formData.deedFilename+' 다운로드</a>');
-			}
-			else {
-				$("#deedFilename").html('증서파일 없음');
-			}
-			$("#carModel").html(formData.carModel);
-			$("#powerSource").html(formData.powerSource);
+			// if(formData.deedFilename != undefined && formData.deedFilename != '') {
+				// $("#deedFilename").html('<a href="/upload/tpsv/'+formData.deedFilename+'" download>'+formData.deedFilename+' 다운로드</a>');
+			// }
+			// else {
+				// $("#deedFilename").html('증서파일 없음');
+			// }
+			// $("#carModel").html(formData.carModel);
+			// $("#powerSource").html(formData.powerSource);
 
 			$('#subform2').css("display", "block");
 		}
 		else if(reqTp == 'U') {
-			$("#authNm").html(formData.authNm);
+			// $("#authNm").html(formData.authNm);
+			$("#authCd").val(formData.authCd);
 			$("#classNm").html(formData.classNm);
 
 			$('#subform1').css("display", "block");
 		}
 		$("#apporStatus").val(formData.apporStatus);
-		$("#cnclNote").val(formData.cnclNote);
+		// $("#cnclNote").val(formData.cnclNote);
 
-		if(formData.apporStatus == '103') $('#cnclNote').prop('disabled', false);
-		else $('#cnclNote').prop('disabled', true);
+		// if(formData.apporStatus == '103') $('#cnclNote').prop('disabled', false);
+		// else $('#cnclNote').prop('disabled', true);
 	});
 }
 
 function fn_save() {
 	if (!$("#detailForm").valid()) return;
-	if($("#apporStatus").val() != '103') $('#cnclNote').val('');
+	// if($("#apporStatus").val() != '103') $('#cnclNote').val('');
 
 	var data =$("#detailForm").serializeArray();
 
-	commonAjax(data, "/system/req/updateReqConfirmInfo_"+$("#reqTp").val()+".do", function(returnData, textStatus, jqXHR) {
-		alert(returnData.message);
-		fn_search();
-	});
+	if($("#apporStatus").val() == '103') {
+		commonAjax(data, "/system/req/deleteReqConfirmInfo_"+$("#reqTp").val()+".do", function(returnData, textStatus, jqXHR) {
+			alert(returnData.message);
+			fn_search();
+		});
+	}
+	else {
+		if($("#reqTp").val() == "T" && !$('#btnDupChk').prop('disabled')) {
+			if ($("#dupChkYN").val() == "N") {
+				alert("임시운행등록번호 중복체크를 해주십시오.");
+				return;
+			}
+		}
+		commonAjax(data, "/system/req/updateReqConfirmInfo_"+$("#reqTp").val()+".do", function(returnData, textStatus, jqXHR) {
+			alert(returnData.message);
+			fn_search();
+		});
+	}
 }
 
 $("#apporStatus").change(function () {
-	if($(this).val() == '103') $('#cnclNote').prop('disabled', false);
-	else $('#cnclNote').prop('disabled', true);
+	// if($(this).val() == '103') $('#cnclNote').prop('disabled', false);
+	// else $('#cnclNote').prop('disabled', true);
 });
+
+$("#tmpRaceNumber").keyup(function () {
+	if($(this).val() == $("#reqId").val()) {
+		$('#btnDupChk').prop('disabled', true);
+		$('#btnDupChk').css({'color':'#5a5a5a','font-weight':'normal'});
+	}
+	else {
+		$('#btnDupChk').prop('disabled', false);
+		$('#btnDupChk').css({'color':'#b60404','font-weight':'bold'});
+	}
+});
+
+function fn_dupCheck() {
+	if ($("#tmpRaceNumber").val() == "") return;
+
+	commonAjax({ "tmpRaceNumber": $("#tmpRaceNumber").val() }, "/system/req/checkDuplNumber.do", function(returnData, textStatus, jqXHR) {
+		if (returnData.rows.length == 0) {
+			$("#dupChkYN").val("Y");
+			alert("사용 가능 합니다.");
+		} else {
+			$("#dupChkYN").val("N");
+			alert("중복된 등록번호가 존재합니다. 다시 입력해 주십시오.");
+			$("#tmpRaceNumber").focus();
+		}
+	});
+}
 
 </script>

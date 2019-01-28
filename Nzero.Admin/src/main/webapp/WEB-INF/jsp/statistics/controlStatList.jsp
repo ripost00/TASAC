@@ -319,7 +319,8 @@ function fn_excel() {
 
 	$('#columnsNm').val(getColNames());
 	$('#datafield').val(datafield);
-	$('#excelFileNm').val('제어권전환통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	// $('#excelFileNm').val('제어권전환통계'+'_'+$("#sType option:selected").text()+'_'+$("#sTerm option:selected").text()+'.xls');
+	$('#excelFileNm').val('Control_statistics_excel.xls');
 
 	$('#yearArr').val(yearArr);
 
