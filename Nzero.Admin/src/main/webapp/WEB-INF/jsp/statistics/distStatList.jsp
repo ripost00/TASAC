@@ -343,9 +343,9 @@ function fn_excel() {
 					<option value="MON">월별</option>
 					<option value="YEAR">년도별</option>
 				</select>
-				<input type="text" class="yearpicker" style="float: left; margin-left: 2px; width: 100px; height: 19px;" id="sDate" name="sDate" value="" readonly />
+				<input type="text" class="yearpicker" style="float: left; margin-left: 2px; width: 100px; height: 19px;" id="sDate" name="sDate" value="2018" readonly />
 				<span style="float: left;">&nbsp;~&nbsp;</span>
-				<input type="text" class="yearpicker" style="float: left; margin-left: 2px; width: 100px; height: 19px;" id="eDate" name="eDate" value="" readonly disabled />
+				<input type="text" class="yearpicker" style="float: left; margin-left: 2px; width: 100px; height: 19px;" id="eDate" name="eDate" value="2019" readonly disabled />
 			</fieldset>
 		</form>
 	</div>
