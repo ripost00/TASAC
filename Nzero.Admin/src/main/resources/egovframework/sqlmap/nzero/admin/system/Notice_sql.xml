@@ -48,7 +48,7 @@
 		<isNotEmpty prepend="AND" property="sKeyword">
 			BDWR_TTL_NM LIKE '%' || #sKeyword# || '%'
 		</isNotEmpty>
-         ORDER BY BDWR_RTNG_CD DESC, BDWR_SEQ DESC
+         ORDER BY BDWR_RTNG_CD DESC, REG_DATE DESC
 	</select>
 
 	<!-- 상세내용 -->
